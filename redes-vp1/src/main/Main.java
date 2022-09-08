@@ -38,9 +38,11 @@ public class Main {
 	    
 	    swi.setPorts(ports);
 	    
-		PortaSwitch portaDesconectada = swi.getPrimeiraPortaDesconectada();
-		cabo1.atrelar(portaHost, portaSwitch1);
-		cabo2.atrelar(portaDestino, portaSwitch2);	// mudar depois pra 3
+		PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
+		cabo1.atrelar(portaHost, portaDesconectada1);
+		
+		PortaSwitch portaDesconectada2 = swi.getPrimeiraPortaDesconectada();
+		cabo2.atrelar(portaDestino, portaDesconectada2);	// mudar depois pra 3
 		
 	}
 	
