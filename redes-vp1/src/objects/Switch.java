@@ -1,11 +1,16 @@
 package objects;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Switch {
 	
 	private Queue<Pacote> fila =  new LinkedList<>();
+	private HashMap<String, String> TabArp = new HashMap<>();;
+	private HashMap<String, Porta> TabEnc = new HashMap<>();
+	private List<PortaSwitch> ports;
 	// Lista de Porta
 	
 	private void encaminhar(Pacote pacote, Integer Porta) {
@@ -17,9 +22,29 @@ public class Switch {
 		// nao espera-se resposta de ninguem.
 	}
 	
-	private Integer Buscar(String MacAddrss) {
-		//
-		return 0;
+	private String buscarARP(String ip) {
+		
+		String buscado = this.TabArp.get(ip);
+		
+		return buscado;
+	}
+	
+	private Porta buscarEnc(String macAddress) {
+		
+		Porta buscado = this.TabEnc.get(macAddress);
+		
+		return buscado;
+	}
+	
+	private Porta getPrimeiraPortaDesconectada() {
+		Porta portaReturned = null;
+		for(Porta porta : this.ports) {
+			if(!porta.ligado) {
+				portaReturned=porta;
+				break;
+			}
+		}
+		return portaReturned;
 	}
 	
 	public void receber(Pacote pacote) {
