@@ -15,12 +15,8 @@ public class Switch {
 	private List<PortaSwitch> ports;
 	// Lista de Porta
 	
-	public Switch(Queue<Pacote> fila, HashMap<String, String> tabArp, HashMap<String, Porta> tabEnc,
-			List<PortaSwitch> ports) {
-		this.fila = fila;
-		this.tabArp = tabArp;
-		this.tabEnc = tabEnc;
-		this.ports = ports;
+	public Switch() {
+
 	}
 	
 	private void encaminhar(Pacote pacote, Integer Porta) {
