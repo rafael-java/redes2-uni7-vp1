@@ -65,10 +65,11 @@ public class Switch {
 	public void receber(Pacote pacote, PortaSwitch portaSwitch) {
 		// ENC - IP, Porta
 		// ARP - MAC, IP
-
+		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e Ip/Mac Address
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
 		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
-		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e Ip/Mac Address
+		
+
 		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao verifica-se na Tabela Enc
 		// 3. Apos verificar-se na tabela, caso esteja na tabela executa o encaminhamento caso nao executa BroadCast
 	}
