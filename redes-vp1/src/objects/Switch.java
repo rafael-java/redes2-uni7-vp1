@@ -29,19 +29,16 @@ public class Switch {
 	}
 	
 	private String buscarARP(String ip) {
-		return null;
-//		String buscado = this.TabArp.get(ip);
-//		
-//		return buscado;
+		String buscado = this.tabArp.get(ip);
+		
+		return buscado;
 	}
 	
 	private Porta buscarEnc(String macAddress) {
 		
-//		Porta buscado = this.TabEnc.get(macAddress);
-//		
-//		return buscado;
+		Porta buscado = this.tabEnc.get(macAddress);
 		
-		return null;
+		return buscado;
 	}
 	
 	public PortaSwitch getPrimeiraPortaDesconectada () throws NullPointerException  {
@@ -68,6 +65,24 @@ public class Switch {
 		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e Ip/Mac Address
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
 		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
+		
+		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
+			this.broadcast(pacote);
+		} else {
+			String macDes = this.buscarARP(pacote.getIpDestino());
+			
+			if(macDes == null) {
+				this.broadcast(pacote);
+			}else {
+				Porta port = this.buscarEnc(macDes);
+				
+				port.enviar(pacote);
+				
+			}
+			
+			
+		}
+		
 		
 
 		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao verifica-se na Tabela Enc
