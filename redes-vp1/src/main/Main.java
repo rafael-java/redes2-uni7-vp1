@@ -38,12 +38,16 @@ public class Main {
 	    
 	    swi.setPorts(ports);
 	    
-		PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
-		cabo1.atrelar(portaHost, portaDesconectada1);
-		
-		PortaSwitch portaDesconectada2 = swi.getPrimeiraPortaDesconectada();
-		cabo2.atrelar(portaDestino, portaDesconectada2);	// mudar depois pra 3
-		
+	    try {
+	    	PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
+			cabo1.atrelar(portaHost, portaDesconectada1);
+			
+			PortaSwitch portaDesconectada2 = swi.getPrimeiraPortaDesconectada();
+			cabo2.atrelar(portaDestino, portaDesconectada2);	// mudar depois pra 3
+		} catch (Exception e) {
+			System.out.println("Error, não tem portas deconectadas");
+		}
+				
 	}
 	
 

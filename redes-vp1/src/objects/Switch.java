@@ -44,7 +44,7 @@ public class Switch {
 		return null;
 	}
 	
-	public PortaSwitch getPrimeiraPortaDesconectada() {
+	public PortaSwitch getPrimeiraPortaDesconectada () throws NullPointerException  {
 		PortaSwitch portaReturned = null;
 		for(PortaSwitch porta : this.ports) {
 			if(!porta.getLigado()) {
@@ -52,7 +52,14 @@ public class Switch {
 				break;
 			}
 		}
-		return portaReturned;
+		
+		if (portaReturned != null) {
+			return portaReturned;
+		}
+		else {
+			throw new NullPointerException();
+		}
+		
 	}
 	
 	public void receber(Pacote pacote) {
