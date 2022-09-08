@@ -36,10 +36,6 @@ public class Host {
 		// Ao Receber o ArpReply Reenviar todas os Pacotes na Fila. 
 	}
 	
-	public void atrelar(PortaHost porta) {
-//		this.porta=porta;
-	}
-	
 	private String buscarARP(String ip) {
 //		String buscado = this.TabArp.get(ip);
 //		
