@@ -44,16 +44,15 @@ public class Switch {
 		return null;
 	}
 	
-	private Porta getPrimeiraPortaDesconectada() {
-//		Porta portaReturned = null;
-//		for(Porta porta : this.ports) {
-//			if(!porta.ligado) {
-//				portaReturned=porta;
-//				break;
-//			}
-//		}
-//		return portaReturned;
-		return null;
+	public PortaSwitch getPrimeiraPortaDesconectada() {
+		PortaSwitch portaReturned = null;
+		for(PortaSwitch porta : this.ports) {
+			if(!porta.getLigado()) {
+				portaReturned = porta;
+				break;
+			}
+		}
+		return portaReturned;
 	}
 	
 	public void receber(Pacote pacote) {

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import objects.Cabo;
 import objects.Host;
+import objects.Porta;
 import objects.PortaHost;
 import objects.PortaSwitch;
 import objects.Switch;
@@ -12,50 +13,49 @@ import objects.Switch;
 public class Main {
 	
 	public static void enviar(String payload) {
-		Host hostOrigem = new Host("macAddress", "ip");
 		
-		PortaHost portaHost = new PortaHost(0, true, "macAddress");
-		
+		Cabo cabo1 = new Cabo();
+	    Cabo cabo2 = new Cabo();
+	    
+		Host hostOrigem = new Host("macAddress", "ip1");
+		PortaHost portaHost = new PortaHost(0, "macAddress", hostOrigem);
 		hostOrigem.setPortaHost(portaHost);
 		
+		Host hostDestino = new Host("macAddress2", "ip2");
+		PortaHost portaDestino = new PortaHost(1, "macAddress2", hostDestino);
+		hostDestino.setPortaHost(portaDestino);
 		
-				
-		Cabo cabo = new Cabo(null, null);
+		Switch swi = new Switch();
+	    List<PortaSwitch> ports = new ArrayList<PortaSwitch>();
+	    
+	    PortaSwitch portaSwitch1 = new PortaSwitch(2,"macAddress123",swi);
+	    PortaSwitch portaSwitch2 = new PortaSwitch(3,"macAddress1984721864123",swi);
+	    PortaSwitch portaSwitch3 = new PortaSwitch(4,"mackasjdlasjdo2356",swi);
+	    
+	    ports.add(portaSwitch1);
+	    ports.add(portaSwitch2);
+	    ports.add(portaSwitch3);
+	    
+	    swi.setPorts(ports);
+	    
+		PortaSwitch portaDesconectada = swi.getPrimeiraPortaDesconectada();
+		cabo1.atrelar(portaHost, portaSwitch1);
+		cabo2.atrelar(portaDestino, portaSwitch2);	// mudar depois pra 3
+		
 	}
-	
-	
 	
 
 	public static void main(String[] args) {
 		
-		String payload = "";
-		int i = 0;
 	    Scanner sc = new Scanner(System.in);
 	    System.out.print("Digite um Payload:");
-	    payload = sc.nextLine();
+	    sc.nextLine();
+	    String payload = sc.nextLine();
 	    
-	    
-	    Switch swi = new Switch();
-	    
-	    PortaSwitch port1 = new PortaSwitch(1,false,"macAddress123",swi);
-	    PortaSwitch port2 = new PortaSwitch(1,false,"macAddress1984721864123",swi);
-	    PortaSwitch port3 = new PortaSwitch(1,false,"mackasjdlasjdo2356",swi);
-	    
-	    List<PortaSwitch> ports = new ArrayList<PortaSwitch>();
-	    
-	    ports.add(port1);
-	    ports.add(port2);
-	    ports.add(port3);
-	    
-	    swi.setPorts(ports);
+	    enviar(payload);
 	    
 	    //System.out.println();
 	    sc.close(); //Encerra o programa
-		
-		
-		
-		
-		
 
 	}
 

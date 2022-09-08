@@ -4,10 +4,8 @@ public class Cabo {
 	private Porta ponta1;
 	private Porta ponta2;
 		
-	public Cabo(Porta ponta1, Porta ponta2) {
+	public Cabo() {
 		super();
-		this.ponta1 = ponta1;
-		this.ponta2 = ponta2;
 	}
 	
 	public void transmitir(Pacote pacote, Porta origem) {
@@ -18,9 +16,11 @@ public class Cabo {
 //		}
 	}
 	
-	public void atrelar(Porta portaHost, Porta portaSwitch) {
-//		this.ponta1=porta1;
-//		this.ponta2=porta2;
+	public void atrelar(Porta ponta1, Porta ponta2) {
+		this.ponta1 = ponta1;
+		this.ponta2 = ponta2;
+		ponta1.setLigado(true);
+		ponta2.setLigado(true);
 	}
 
 	public Porta getPonta1() {

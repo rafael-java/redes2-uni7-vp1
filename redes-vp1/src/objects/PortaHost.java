@@ -4,8 +4,9 @@ public class PortaHost extends Porta {
 
 	private Host host;
 	
-	public PortaHost(int id, boolean ligado, String macAddress) {
-		super(id, ligado, macAddress);
+	public PortaHost(int id, String macAddress, Host host) {
+		super(id, macAddress);
+		this.host = host;
 	}
 	
 	public Host getHost() {

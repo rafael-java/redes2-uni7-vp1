@@ -6,8 +6,8 @@ public abstract class Porta {
 	private String macAddress;
 	private Cabo cabo;
 	
-	public Porta(int id, boolean ligado, String macAddress) {
-		
+	public Porta(int id, String macAddress) {
+		this.ligado = false;
 	}
 	
 	public void enviar(Pacote pacote) {
