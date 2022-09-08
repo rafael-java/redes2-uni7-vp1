@@ -20,15 +20,15 @@ public class Host {
 
 	public void enviar(String ipDestino, String payload) {
 		Pacote pkg = new Pacote(this.macAddress, this.ip, ipDestino, payload);
-//		String macDestino = buscarARP(ipDestino);
-//		if(macDestino != null) {
-//			pkg.setMacDestino(macDestino);
-//			this.porta.enviar(pkg);
-//		} else {
-//			Pacote arpPkg = new Pacote(this.MacAddress, this.Ip, "FF:FF:FF:FF:FF:FF", Ip, "Request");
-//			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
-//			this.porta.enviar(arpPkg);	
-//		}
+		String macDestino = buscarARP(ipDestino);
+		if(macDestino != null) {
+			pkg.setMacDestino(macDestino);
+			this.portaHost.enviar(pkg);
+		} else {
+			Pacote arpPkg = new Pacote(this.macAddress, "FF:FF:FF:FF:FF:FF", this.ip, ip, true);
+			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
+			this.portaHost.enviar(arpPkg);	
+		}
 		
 	}
 	
