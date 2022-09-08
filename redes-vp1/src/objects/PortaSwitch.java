@@ -16,6 +16,16 @@ public class PortaSwitch extends Porta {
 	public void setSwi(Switch swi) {
 		this.swi = swi;
 	}
+
+	@Override
+	public void enviar(Pacote pacote) {
+		
+	}
+
+	@Override
+	public void receber(Pacote pacote) {
+		swi.receber(pacote, this);
+	}
 	
 	
 

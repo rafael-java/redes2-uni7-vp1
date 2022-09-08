@@ -10,13 +10,9 @@ public abstract class Porta {
 		this.ligado = false;
 	}
 	
-	public void enviar(Pacote pacote) {
-		//this.cabo.
-	}
+	public abstract void enviar(Pacote pacote);
 	
-	public void receber(Pacote pacote) {
-		
-	}
+	public abstract void receber(Pacote pacote);
 
 	public Integer getId() {
 		return id;

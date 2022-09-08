@@ -17,4 +17,16 @@ public class PortaHost extends Porta {
 		this.host = host;
 	}
 
+	@Override
+	public void enviar(Pacote pacote) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void receber(Pacote pacote) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
