@@ -18,10 +18,6 @@ public class PortaHost extends Porta {
 	}
 
 	@Override
-	public void enviar(Pacote pacote) {
-	}
-
-	@Override
 	public void receber(Pacote pacote) {
 		// TODO Auto-generated method stub
 		
