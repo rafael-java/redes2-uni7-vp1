@@ -7,11 +7,21 @@ import java.util.Queue;
 
 public class Switch {
 	
-	private Queue<Pacote> fila =  new LinkedList<>();
-	private HashMap<String, String> TabArp = new HashMap<>();;
-	private HashMap<String, Porta> TabEnc = new HashMap<>();
+	private Queue<Pacote> fila =  new LinkedList<Pacote>();
+	// MAC, IP
+	private HashMap<String, String> tabArp = new HashMap<>();
+	// IP, Porta
+	private HashMap<String, Porta> tabEnc = new HashMap<>();
 	private List<PortaSwitch> ports;
 	// Lista de Porta
+	
+	public Switch(Queue<Pacote> fila, HashMap<String, String> tabArp, HashMap<String, Porta> tabEnc,
+			List<PortaSwitch> ports) {
+		this.fila = fila;
+		this.tabArp = tabArp;
+		this.tabEnc = tabEnc;
+		this.ports = ports;
+	}
 	
 	private void encaminhar(Pacote pacote, Integer Porta) {
 		//Enviar Pacote para PortaSwitch recebida.	
@@ -23,33 +33,68 @@ public class Switch {
 	}
 	
 	private String buscarARP(String ip) {
-		
-		String buscado = this.TabArp.get(ip);
-		
-		return buscado;
+		return null;
+//		String buscado = this.TabArp.get(ip);
+//		
+//		return buscado;
 	}
 	
 	private Porta buscarEnc(String macAddress) {
 		
-		Porta buscado = this.TabEnc.get(macAddress);
+//		Porta buscado = this.TabEnc.get(macAddress);
+//		
+//		return buscado;
 		
-		return buscado;
+		return null;
 	}
 	
 	private Porta getPrimeiraPortaDesconectada() {
-		Porta portaReturned = null;
-		for(Porta porta : this.ports) {
-			if(!porta.ligado) {
-				portaReturned=porta;
-				break;
-			}
-		}
-		return portaReturned;
+//		Porta portaReturned = null;
+//		for(Porta porta : this.ports) {
+//			if(!porta.ligado) {
+//				portaReturned=porta;
+//				break;
+//			}
+//		}
+//		return portaReturned;
+		return null;
 	}
 	
 	public void receber(Pacote pacote) {
 		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e Ip/Mac Address
 		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao verifica-se na Tabela Enc
 		// 3. Apos verificar-se na tabela, caso esteja na tabela executa o encaminhamento caso nao executa BroadCast
+	}
+
+	public Queue<Pacote> getFila() {
+		return fila;
+	}
+
+	public void setFila(Queue<Pacote> fila) {
+		this.fila = fila;
+	}
+
+	public HashMap<String, String> getTabArp() {
+		return tabArp;
+	}
+
+	public void setTabArp(HashMap<String, String> tabArp) {
+		this.tabArp = tabArp;
+	}
+
+	public HashMap<String, Porta> getTabEnc() {
+		return tabEnc;
+	}
+
+	public void setTabEnc(HashMap<String, Porta> tabEnc) {
+		this.tabEnc = tabEnc;
+	}
+
+	public List<PortaSwitch> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(List<PortaSwitch> ports) {
+		this.ports = ports;
 	}
 }

@@ -2,9 +2,21 @@ package objects;
 
 public class PortaSwitch extends Porta {
 
-	public PortaSwitch(int id, boolean ligado, String macAddress) {
+	private Switch swi;
+	
+	public PortaSwitch(int id, boolean ligado, String macAddress, Switch swi) {
 		super(id, ligado, macAddress);
-		// TODO Auto-generated constructor stub
+		this.swi = swi;
 	}
+
+	public Switch getSwi() {
+		return swi;
+	}
+
+	public void setSwi(Switch swi) {
+		this.swi = swi;
+	}
+	
+	
 
 }
