@@ -10,7 +10,9 @@ public abstract class Porta {
 		this.ligado = false;
 	}
 	
-	public abstract void enviar(Pacote pacote);
+	public void enviar(Pacote pacote) {
+		this.cabo.transmitir(pacote, this);
+	}
 	
 	public abstract void receber(Pacote pacote);
 
