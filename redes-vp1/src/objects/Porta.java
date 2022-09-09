@@ -47,9 +47,4 @@ public abstract class Porta {
 	public void setCabo(Cabo cabo) {
 		this.cabo = cabo;
 	}
-	
-	
-	
-	
-	
 }

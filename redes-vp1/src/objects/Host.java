@@ -37,19 +37,25 @@ public class Host {
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
 		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
 
+		ler(pacote);
+	}
+	
+	public void ler(Pacote pacote) {
 		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
 			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.ip)) {
-				Pacote ArpReply =  new Pacote(this.macAddress, pacote.getMacDestino(), this.ip, pacote.getIpOrigem(), false);
-				this.portaHost.enviar(ArpReply);
+				Pacote pReply =  new Pacote(this.macAddress, pacote.getMacDestino(), this.ip, pacote.getIpOrigem(), false);
+				this.portaHost.enviar(pReply);
 			}
+			
 			if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.ip)) {
-				Pacote pacote2 = fila.poll();
-				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
+				for (Pacote pacote2 : fila) {
+					pacote2 = fila.poll();
+					this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
+				}
 			}
-		}
+		}		
 		
-		
-		// Ao Receber o ArpReply Reenviar todas os Pacotes na Fila. 
+		// Ao Receber o ArpReply optivemos por ser unicast
 	}
 	
 	private String buscarARP(String ip) {

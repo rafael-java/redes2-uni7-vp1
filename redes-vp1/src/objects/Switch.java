@@ -1,23 +1,22 @@
 package objects;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 public class Switch {
 
 	private Queue<Pacote> fila = new LinkedList<Pacote>();
 	// MAC, IP
-	private HashMap<String, String> tabArp = new HashMap<>();
+	private Map<String, String> tabArp = new HashMap<>();
 	// IP, Porta
-	private HashMap<String, PortaSwitch> tabEnc = new HashMap<>();
+	private Map<String, PortaSwitch> tabEnc = new HashMap<>();
 	private List<PortaSwitch> ports;
 	// Lista de Porta
 
 	public Switch() {
-
 	}
 
 	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
@@ -33,7 +32,6 @@ public class Switch {
 		for (PortaSwitch portaSwitch : this.getPorts()) {
 			this.encaminhar(pacote, portaSwitch);
 		}
-
 	}
 
 	private String buscarARP(String ip) {
@@ -77,7 +75,6 @@ public class Switch {
 		// verifica-se na Tabela Enc
 		// 3. Apos verificar-se na tabela, caso esteja na tabela executa o
 		// encaminhamento caso nao executa BroadCast
-		Boolean broadcast = false;
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
 			this.broadcast(pacote);
 		} else {
@@ -92,11 +89,6 @@ public class Switch {
 		}
 	}
 
-	public void metodinho(Boolean broadcast, PortaSwitch portaRetornada) {
-
-//		encaminhar
-	}
-
 	public Queue<Pacote> getFila() {
 		return fila;
 	}
@@ -105,19 +97,19 @@ public class Switch {
 		this.fila = fila;
 	}
 
-	public HashMap<String, String> getTabArp() {
+	public Map<String, String> getTabArp() {
 		return tabArp;
 	}
 
-	public void setTabArp(HashMap<String, String> tabArp) {
+	public void setTabArp(Map<String, String> tabArp) {
 		this.tabArp = tabArp;
 	}
 
-	public HashMap<String, PortaSwitch> getTabEnc() {
+	public Map<String, PortaSwitch> getTabEnc() {
 		return tabEnc;
 	}
 
-	public void setTabEnc(HashMap<String, PortaSwitch> tabEnc) {
+	public void setTabEnc(Map<String, PortaSwitch> tabEnc) {
 		this.tabEnc = tabEnc;
 	}
 

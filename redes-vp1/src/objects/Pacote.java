@@ -69,8 +69,4 @@ public class Pacote {
 	public void setPayload(String payload) {
 		this.payload = payload;
 	}
-
-
-	
-	
 }
