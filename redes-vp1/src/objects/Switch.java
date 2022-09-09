@@ -1,92 +1,99 @@
 package objects;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class Switch {
-	
-	private Queue<Pacote> fila =  new LinkedList<Pacote>();
+
+	private Queue<Pacote> fila = new LinkedList<Pacote>();
 	// MAC, IP
 	private HashMap<String, String> tabArp = new HashMap<>();
 	// IP, Porta
-	private HashMap<String, Porta> tabEnc = new HashMap<>();
+	private HashMap<String, PortaSwitch> tabEnc = new HashMap<>();
 	private List<PortaSwitch> ports;
 	// Lista de Porta
-	
+
 	public Switch() {
 
 	}
-	
-	private void encaminhar(Pacote pacote, Integer Porta) {
-		//Enviar Pacote para PortaSwitch recebida.	
+
+	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
+		// Enviar Pacote para PortaSwitch recebida.
 	}
-	
+
 	private void broadcast(Pacote pacote) {
-		// Enviar para todas as Portas do Switch o Pacote, Executando um Flooding na rede, Lembrando que 
+		// Enviar para todas as Portas do Switch o Pacote, Executando um Flooding na
+		// rede, Lembrando que
 		// nao espera-se resposta de ninguem.
+
+		for (PortaSwitch portaSwitch : this.getPorts()) {
+			this.encaminhar(pacote, portaSwitch);
+		}
+
 	}
-	
+
 	private String buscarARP(String ip) {
+
 		String buscado = this.tabArp.get(ip);
-		
 		return buscado;
 	}
-	
-	private Porta buscarEnc(String macAddress) {
-		
-		Porta buscado = this.tabEnc.get(macAddress);
-		
+
+	private PortaSwitch buscarEnc(String macAddress) {
+
+		PortaSwitch buscado = this.tabEnc.get(macAddress);
 		return buscado;
 	}
-	
-	public PortaSwitch getPrimeiraPortaDesconectada () throws NullPointerException  {
+
+	public PortaSwitch getPrimeiraPortaDesconectada() throws NullPointerException {
 		PortaSwitch portaReturned = null;
-		for(PortaSwitch porta : this.ports) {
-			if(!porta.getLigado()) {
+		for (PortaSwitch porta : this.ports) {
+			if (!porta.getLigado()) {
 				portaReturned = porta;
 				break;
 			}
 		}
-		
+
 		if (portaReturned != null) {
 			return portaReturned;
-		}
-		else {
+		} else {
 			throw new NullPointerException();
 		}
-		
+
 	}
-	
+
 	public void receber(Pacote pacote, PortaSwitch portaSwitch) {
 		// ENC - IP, Porta
 		// ARP - MAC, IP
-		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e Ip/Mac Address
+		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e
+		// Ip/Mac Address
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
 		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
-		
-		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
+
+		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao
+		// verifica-se na Tabela Enc
+		// 3. Apos verificar-se na tabela, caso esteja na tabela executa o
+		// encaminhamento caso nao executa BroadCast
+		Boolean broadcast = false;
+		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
 			this.broadcast(pacote);
 		} else {
 			String macDes = this.buscarARP(pacote.getIpDestino());
-			
-			if(macDes == null) {
-				this.broadcast(pacote);
-			}else {
-				Porta port = this.buscarEnc(macDes);
-				
-				port.enviar(pacote);
-				
-			}
-			
-			
-		}
-		
-		
 
-		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao verifica-se na Tabela Enc
-		// 3. Apos verificar-se na tabela, caso esteja na tabela executa o encaminhamento caso nao executa BroadCast
+			if (macDes == null) {
+				this.broadcast(pacote);
+			} else {
+				PortaSwitch porta = this.buscarEnc(macDes);
+				this.encaminhar(pacote, porta);
+			}
+		}
+	}
+
+	public void metodinho(Boolean broadcast, PortaSwitch portaRetornada) {
+
+//		encaminhar
 	}
 
 	public Queue<Pacote> getFila() {
@@ -105,11 +112,11 @@ public class Switch {
 		this.tabArp = tabArp;
 	}
 
-	public HashMap<String, Porta> getTabEnc() {
+	public HashMap<String, PortaSwitch> getTabEnc() {
 		return tabEnc;
 	}
 
-	public void setTabEnc(HashMap<String, Porta> tabEnc) {
+	public void setTabEnc(HashMap<String, PortaSwitch> tabEnc) {
 		this.tabEnc = tabEnc;
 	}
 
