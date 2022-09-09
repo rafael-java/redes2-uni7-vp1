@@ -22,6 +22,7 @@ public class Switch {
 
 	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
 		// Enviar Pacote para PortaSwitch recebida.
+		Porta.enviar(pacote);
 	}
 
 	private void broadcast(Pacote pacote) {

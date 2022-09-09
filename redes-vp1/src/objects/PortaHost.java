@@ -20,6 +20,7 @@ public class PortaHost extends Porta {
 	@Override
 	public void receber(Pacote pacote) {
 		// TODO Auto-generated method stub
+		this.host.receber(pacote, this);
 		
 	}
 

@@ -33,7 +33,22 @@ public class Host {
 		this.portaHost.enviar(pkgToSend);
 	}
 	
-	public void receber(Pacote pacote) {
+	public void receber(Pacote pacote, PortaHost portaHost) {
+		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
+		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
+
+		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
+			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.ip)) {
+				Pacote ArpReply =  new Pacote(this.macAddress, pacote.getMacDestino(), this.ip, pacote.getIpOrigem(), false);
+				this.portaHost.enviar(ArpReply);
+			}
+			if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.ip)) {
+				Pacote pacote2 = fila.poll();
+				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
+			}
+		}
+		
+		
 		// Ao Receber o ArpReply Reenviar todas os Pacotes na Fila. 
 	}
 	
