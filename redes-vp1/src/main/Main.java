@@ -18,7 +18,7 @@ public class Main {
 	    Cabo cabo2 = new Cabo();
 	    
 		Host hostOrigem = new Host("macAddress", "ip1");
-		PortaHost portaHost = new PortaHost(0, "macAddress", hostOrigem);
+		PortaHost portaHost = new PortaHost(0, "macAddresssodmfa", hostOrigem);
 		hostOrigem.setPortaHost(portaHost);
 		
 		Host hostDestino = new Host("macAddress2", "ip2");
@@ -47,6 +47,12 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Error, não tem portas deconectadas");
 		}
+	    
+	    hostOrigem.enviar(hostDestino.getIp(), payload);
+	    hostOrigem.enviar(hostDestino.getIp(), payload+"2");
+	    hostDestino.enviar(hostOrigem.getIp(), payload+"@3");
+	    
+	    
 	}
 	
 

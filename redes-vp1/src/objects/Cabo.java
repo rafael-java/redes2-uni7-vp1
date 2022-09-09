@@ -22,7 +22,10 @@ public class Cabo {
 		this.ponta1 = ponta1;
 		this.ponta2 = ponta2;
 		ponta1.setLigado(true);
+		ponta1.setCabo(this);
 		ponta2.setLigado(true);
+		ponta2.setCabo(this);
+		
 	}
 
 	public Porta getPonta1() {

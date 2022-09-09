@@ -9,9 +9,9 @@ import java.util.Queue;
 public class Switch {
 
 	private Queue<Pacote> fila = new LinkedList<Pacote>();
-	// MAC, IP
+	// IP, MAC
 	private Map<String, String> tabArp = new HashMap<>();
-	// IP, Porta
+	// MAC, Porta
 	private Map<String, PortaSwitch> tabEnc = new HashMap<>();
 	private List<PortaSwitch> ports;
 	// Lista de Porta
@@ -30,7 +30,10 @@ public class Switch {
 		// nao espera-se resposta de ninguem.
 
 		for (PortaSwitch portaSwitch : this.getPorts()) {
-			this.encaminhar(pacote, portaSwitch);
+			if(portaSwitch.getCabo() != null) {
+				this.encaminhar(pacote, portaSwitch);
+			}
+			
 		}
 	}
 
@@ -69,7 +72,7 @@ public class Switch {
 		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e
 		// Ip/Mac Address
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
-		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
+		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
 
 		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao
 		// verifica-se na Tabela Enc

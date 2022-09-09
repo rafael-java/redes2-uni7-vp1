@@ -25,7 +25,7 @@ public class Host {
 			pkgToSend = pkg;
 			pkg.setMacDestino(macDestino);
 		} else {
-			Pacote arpPkg = new Pacote(this.macAddress, "FF:FF:FF:FF:FF:FF", this.ip, ip, true);
+			Pacote arpPkg = new Pacote(this.macAddress, "FF:FF:FF:FF:FF:FF", this.ip, ipDestino, true);
 			pkgToSend = arpPkg;
 			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
 		}
@@ -35,7 +35,7 @@ public class Host {
 	
 	public void receber(Pacote pacote, PortaHost portaHost) {
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
-		this.tabArp.put(pacote.getMacOrigem(), pacote.getIpOrigem());
+		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
 
 		ler(pacote);
 	}
@@ -43,17 +43,22 @@ public class Host {
 	public void ler(Pacote pacote) {
 		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
 			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.ip)) {
-				Pacote pReply =  new Pacote(this.macAddress, pacote.getMacDestino(), this.ip, pacote.getIpOrigem(), false);
+				Pacote pReply =  new Pacote(this.macAddress, pacote.getMacOrigem(), this.ip, pacote.getIpOrigem(), false);
 				this.portaHost.enviar(pReply);
 			}
 			
-			if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.ip)) {
-				for (Pacote pacote2 : fila) {
-					pacote2 = fila.poll();
-					this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
-				}
+			
+		}
+		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.ip)) {
+			for (Pacote pacote2 : fila) {
+				pacote2 = fila.poll();
+				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
 			}
-		}		
+		} else {
+			System.out.println("Recebendo Pacote Original");
+			System.out.println("Host:"+this.getMacAddress());
+			System.out.println("Pacote Payload " + pacote.getPayload());
+		}
 		
 		// Ao Receber o ArpReply optivemos por ser unicast
 	}
