@@ -7,6 +7,7 @@ public class PortaSwitch extends Porta {
 	public PortaSwitch(int id, String macAddress, Switch swi) {
 		super(id, macAddress);
 		this.swi = swi;
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new PortaSwitch");
 	}
 
 	public Switch getSwi() {
@@ -20,6 +21,8 @@ public class PortaSwitch extends Porta {
 
 	@Override
 	public void receber(Pacote pacote) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: receber (porta switcch)");
+
 		swi.receber(pacote, this);
 	}
 

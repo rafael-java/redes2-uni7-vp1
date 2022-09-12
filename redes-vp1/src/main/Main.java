@@ -14,6 +14,8 @@ public class Main {
 	
 	public static void enviar(String payload) {
 		
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Método enviar do main");
+		
 		Cabo cabo1 = new Cabo();
 	    Cabo cabo2 = new Cabo();
 	    
@@ -27,6 +29,7 @@ public class Main {
 		
 		Switch swi = new Switch();
 	    List<PortaSwitch> ports = new ArrayList<PortaSwitch>();
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new List Porta Switch");
 	    
 	    PortaSwitch portaSwitch1 = new PortaSwitch(2,"macAddress123",swi);
 	    PortaSwitch portaSwitch2 = new PortaSwitch(3,"macAddress1984721864123",swi);
@@ -35,6 +38,7 @@ public class Main {
 	    ports.add(portaSwitch1);
 	    ports.add(portaSwitch2);
 	    ports.add(portaSwitch3);
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: add Porta Switch na lista");
 	    
 	    swi.setPorts(ports);
 	    
@@ -65,8 +69,7 @@ public class Main {
 	    
 	    enviar(payload);
 	    
-	    //System.out.println();
-	    sc.close(); //Encerra o programa
+	    sc.close(); //Encerra o scanner
 
 	}
 

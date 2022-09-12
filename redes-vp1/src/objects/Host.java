@@ -15,9 +15,12 @@ public class Host {
 	public Host(String macAddress, String ip) {
 		this.macAddress = macAddress;
 		this.ip = ip;
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
 	}
 
 	public void enviar(String ipDestino, String payload) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: enviar (host)");
+
 		Pacote pkg = new Pacote(this.macAddress, this.ip, ipDestino, payload);
 		String macDestino = buscarARP(ipDestino);
 		Pacote pkgToSend = null;
@@ -28,6 +31,8 @@ public class Host {
 			Pacote arpPkg = new Pacote(this.macAddress, "FF:FF:FF:FF:FF:FF", this.ip, ipDestino, true);
 			pkgToSend = arpPkg;
 			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
+			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: adicionar pacote na fila");
+
 		}
 		
 		this.portaHost.enviar(pkgToSend);
@@ -41,6 +46,8 @@ public class Host {
 	}
 	
 	public void ler(Pacote pacote) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: ler pacote");
+
 		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
 			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.ip)) {
 				Pacote pReply =  new Pacote(this.macAddress, pacote.getMacOrigem(), this.ip, pacote.getIpOrigem(), false);
@@ -64,11 +71,15 @@ public class Host {
 	}
 	
 	private String buscarARP(String ip) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: buscar arp (host)");
+
 		String buscado = this.tabArp.get(ip);
 		return buscado;
 	}
 	
 	private Porta buscarEnc(String macAddress) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: buscar enc (host)");
+
 		Porta buscado = this.tabEnc.get(macAddress);
 		return buscado;
 	}
@@ -110,6 +121,7 @@ public class Host {
 	}
 
 	public void setPortaHost(PortaHost portaHost) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: setPortaHost");
 		this.portaHost = portaHost;
 	}
 

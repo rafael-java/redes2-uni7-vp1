@@ -11,6 +11,8 @@ public abstract class Porta {
 	}
 	
 	public void enviar(Pacote pacote) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: enviar (porta)");
+
 		this.cabo.transmitir(pacote, this);
 	}
 	

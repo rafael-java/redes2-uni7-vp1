@@ -8,18 +8,22 @@ public class Pacote {
 	private String payload;
 
 	public Pacote(String macOrigem, String ipOrigem, String ipDestino, String payload) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new pacote (normal)");
+
 		this.macOrigem = macOrigem;
 		this.ipOrigem = ipOrigem;
 		this.ipDestino = ipDestino;
 		this.payload = payload;
 	}
 	
-	public Pacote(String macOrigem, String macDestino, String ipOrigem, String ipDestino, Boolean ARP) {
+	public Pacote(String macOrigem, String macDestino, String ipOrigem, String ipDestino, Boolean ARPRequest) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new pacote (ARP)");
+
 		this.macOrigem = macOrigem;
 		this.ipOrigem = ipOrigem;
 		this.macDestino = macDestino;
 		this.ipDestino = ipDestino;
-		if (ARP) {
+		if (ARPRequest) {
 			this.payload = "Request";
 		} else {
 			this.payload = "Reply";
@@ -51,6 +55,8 @@ public class Pacote {
 	}
 
 	public void setMacDestino(String macDestino) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: set mac destino (pacote)");
+
 		this.macDestino = macDestino;
 	}
 
