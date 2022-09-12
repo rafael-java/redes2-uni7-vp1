@@ -29,10 +29,6 @@ public class Pacote {
 			this.payload = "Reply";
 		}
 	}
-	
-	private void esperar() {
-		
-	}
 
 	public String getMacOrigem() {
 		return macOrigem;

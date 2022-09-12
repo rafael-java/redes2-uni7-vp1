@@ -45,7 +45,7 @@ public class Host {
 		ler(pacote);
 	}
 	
-	public void ler(Pacote pacote) {
+	private void ler(Pacote pacote) {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: ler pacote");
 
 		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {

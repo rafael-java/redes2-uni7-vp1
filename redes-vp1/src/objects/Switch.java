@@ -20,42 +20,6 @@ public class Switch {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Switch");
 	}
 
-	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: encaminhar (switch)");
-
-		// Enviar Pacote para PortaSwitch recebida.
-		Porta.enviar(pacote);
-	}
-
-	private void broadcast(Pacote pacote) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: broadcast");
-
-		// Enviar para todas as Portas do Switch o Pacote, Executando um Flooding na
-		// rede, Lembrando que
-		// nao espera-se resposta de ninguem.
-
-		for (PortaSwitch portaSwitch : this.getPorts()) {
-			if(portaSwitch.getCabo() != null) {
-				this.encaminhar(pacote, portaSwitch);
-			}
-			
-		}
-	}
-
-	private String buscarARP(String ip) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca arp (switch)");
-
-		String buscado = this.tabArp.get(ip);
-		return buscado;
-	}
-
-	private PortaSwitch buscarEnc(String macAddress) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca enc (switch)");
-
-		PortaSwitch buscado = this.tabEnc.get(macAddress);
-		return buscado;
-	}
-
 	public PortaSwitch getPrimeiraPortaDesconectada() throws NullPointerException {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: getPrimeiraPortaDesconectada");
 
@@ -101,6 +65,42 @@ public class Switch {
 				this.encaminhar(pacote, porta);
 			}
 		}
+	}
+	
+	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: encaminhar (switch)");
+
+		// Enviar Pacote para PortaSwitch recebida.
+		Porta.enviar(pacote);
+	}
+
+	private void broadcast(Pacote pacote) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: broadcast");
+
+		// Enviar para todas as Portas do Switch o Pacote, Executando um Flooding na
+		// rede, Lembrando que
+		// nao espera-se resposta de ninguem.
+
+		for (PortaSwitch portaSwitch : this.getPorts()) {
+			if(portaSwitch.getCabo() != null) {
+				this.encaminhar(pacote, portaSwitch);
+			}
+			
+		}
+	}
+	
+	private String buscarARP(String ip) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca arp (switch)");
+
+		String buscado = this.tabArp.get(ip);
+		return buscado;
+	}
+
+	private PortaSwitch buscarEnc(String macAddress) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca enc (switch)");
+
+		PortaSwitch buscado = this.tabEnc.get(macAddress);
+		return buscado;
 	}
 
 	public Queue<Pacote> getFila() {
