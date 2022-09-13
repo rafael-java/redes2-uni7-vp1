@@ -12,7 +12,7 @@ public abstract class Porta {
 		if (!Singleton.getInstance().checkIfExists(macAddress)) {
 			this.macAddress = macAddress;
 			this.ligado = false;
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
+			
 		} else {
 			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
 		}
