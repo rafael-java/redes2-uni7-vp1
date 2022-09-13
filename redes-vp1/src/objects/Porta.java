@@ -3,9 +3,25 @@ package objects;
 public abstract class Porta {
 	private Boolean ligado;
 	private String macAddress;
+	private String ip;
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
 	private Cabo cabo;
 	
 	public Porta(String macAddress) {
+		this.macAddress = macAddress;
+		this.ligado = false;
+	}
+	
+	public Porta(String macAddress, String Ip) {
+		this.macAddress = macAddress;
+		this.ip = Ip;
 		this.ligado = false;
 	}
 	

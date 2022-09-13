@@ -4,8 +4,8 @@ public class PortaHost extends Porta {
 
 	private Host host;
 	
-	public PortaHost(String macAddress, Host host) {
-		super(macAddress);
+	public PortaHost(String macAddress,String Ip, Host host) {
+		super(macAddress, Ip);
 		this.host = host;
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new PortaHost");
 	}

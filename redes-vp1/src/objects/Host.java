@@ -1,44 +1,30 @@
 package objects;
-import java.security.InvalidAlgorithmParameterException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class Host {
 
-	private String macAddress;
-	private String ip;
 	private HashMap<String, String> tabArp = new HashMap<>();
 	private HashMap<String, Porta> tabEnc = new HashMap<>();
 	private PortaHost portaHost;
 	private Queue<Pacote> fila =  new LinkedList<Pacote>();
 	
-	public Host(String macAddress, String ip) throws InvalidAlgorithmParameterException {
-		if (!Singleton.getInstance().checkIfExists(macAddress) && !Singleton.getInstance().checkIfExists(ip)) {
-			this.macAddress = macAddress;
-			this.ip = ip;
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
-		} else {
-			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
-		}
-		
+	public Host() {
 	}
 
 	public void enviar(String ipDestino, String payload) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: enviar (host)");
-
-		Pacote pkg = new Pacote(this.macAddress, this.ip, ipDestino, payload);
+		
+		Pacote pkg = new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload);
 		String macDestino = buscarARP(ipDestino);
 		Pacote pkgToSend = null;
 		if(macDestino != null) {
 			pkgToSend = pkg;
 			pkg.setMacDestino(macDestino);
 		} else {
-			Pacote arpPkg = new Pacote(this.macAddress, "FF:FF:FF:FF:FF:FF", this.ip, ipDestino, true);
+			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
 			pkgToSend = arpPkg;
 			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: adicionar pacote na fila");
-
 		}
 		
 		this.portaHost.enviar(pkgToSend);
@@ -51,25 +37,23 @@ public class Host {
 		ler(pacote);
 	}
 	
-	private void ler(Pacote pacote) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: ler pacote");
-
+	public void ler(Pacote pacote) {
 		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
-			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.ip)) {
-				Pacote pReply =  new Pacote(this.macAddress, pacote.getMacOrigem(), this.ip, pacote.getIpOrigem(), false);
+			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
+				Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);
 				this.portaHost.enviar(pReply);
 			}
 			
 			
 		}
-		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.ip)) {
+		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
 			}
 		} else {
 			System.out.println("Recebendo Pacote Original");
-			System.out.println("Host:"+this.getMacAddress());
+			System.out.println("Host:"+this.portaHost.getMacAddress());
 			System.out.println("Pacote Payload " + pacote.getPayload());
 		}
 		
@@ -77,35 +61,16 @@ public class Host {
 	}
 	
 	private String buscarARP(String ip) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: buscar arp (host)");
-
 		String buscado = this.tabArp.get(ip);
 		return buscado;
 	}
 	
 	private Porta buscarEnc(String macAddress) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: buscar enc (host)");
-
 		Porta buscado = this.tabEnc.get(macAddress);
 		return buscado;
 	}
 
-	public String getMacAddress() {
-		return macAddress;
-	}
-
-	public void setMacAddress(String macAddress) {
-		this.macAddress = macAddress;
-	}
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-
+	
 	public HashMap<String, String> getTabArp() {
 		return tabArp;
 	}
@@ -127,7 +92,6 @@ public class Host {
 	}
 
 	public void setPortaHost(PortaHost portaHost) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: setPortaHost");
 		this.portaHost = portaHost;
 	}
 
