@@ -1,19 +1,38 @@
 package objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class Singleton {
 
 	private static Singleton instance;
-    public String value;
+	private static String value;
+	private static List<String> values;
 
-    private Singleton(String value) {
-        this.value = value;
-    }
+	private Singleton(List<String> values) {
+		this.values = values;
+	}
 
-    public static Singleton getInstance(String value) {
-        if (instance == null) {
-            instance = new Singleton(value);
-        }
-        return instance;
-    }
-    
+	public static Singleton getInstance() {
+		if (instance == null) {
+			List<String> values = new ArrayList<String>();
+			instance = new Singleton(values);
+		}
+		return instance;
+	}
+
+	public static boolean checkIfExists(String value) {
+		if (values.contains(value)) {
+			return true;
+		} else {
+			values.add(value);
+			return false;
+		}
+	}
+
+	public static boolean checkIfExists(Integer value) {
+		String val = value.toString();
+		return checkIfExists(val);		
+	}
+
 }

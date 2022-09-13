@@ -1,4 +1,5 @@
 package objects;
+import java.security.InvalidAlgorithmParameterException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -12,10 +13,15 @@ public class Host {
 	private PortaHost portaHost;
 	private Queue<Pacote> fila =  new LinkedList<Pacote>();
 	
-	public Host(String macAddress, String ip) {
-		this.macAddress = macAddress;
-		this.ip = ip;
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
+	public Host(String macAddress, String ip) throws InvalidAlgorithmParameterException {
+		if (!Singleton.getInstance().checkIfExists(macAddress) && !Singleton.getInstance().checkIfExists(ip)) {
+			this.macAddress = macAddress;
+			this.ip = ip;
+			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
+		} else {
+			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
+		}
+		
 	}
 
 	public void enviar(String ipDestino, String payload) {

@@ -4,8 +4,8 @@ public class PortaSwitch extends Porta {
 
 	private Switch swi;
 	
-	public PortaSwitch(int id, String macAddress, Switch swi) {
-		super(id, macAddress);
+	public PortaSwitch(String macAddress, Switch swi) {
+		super(macAddress);
 		this.swi = swi;
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new PortaSwitch");
 	}

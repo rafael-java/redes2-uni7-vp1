@@ -1,12 +1,11 @@
 package objects;
 
 public abstract class Porta {
-	private Integer id;
 	private Boolean ligado;
 	private String macAddress;
 	private Cabo cabo;
 	
-	public Porta(int id, String macAddress) {
+	public Porta(String macAddress) {
 		this.ligado = false;
 	}
 	
@@ -17,14 +16,6 @@ public abstract class Porta {
 	}
 	
 	public abstract void receber(Pacote pacote);
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Boolean getLigado() {
 		return ligado;
