@@ -1,28 +1,21 @@
 package objects;
 
+import java.security.InvalidAlgorithmParameterException;
+
 public abstract class Porta {
 	private Boolean ligado;
 	private String macAddress;
-	private String ip;
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
 
 	private Cabo cabo;
-	
-	public Porta(String macAddress) {
-		this.macAddress = macAddress;
-		this.ligado = false;
-	}
-	
-	public Porta(String macAddress, String Ip) {
-		this.macAddress = macAddress;
-		this.ip = Ip;
-		this.ligado = false;
+		
+	public Porta(String macAddress) throws InvalidAlgorithmParameterException {
+		if (!Singleton.getInstance().checkIfExists(macAddress)) {
+			this.macAddress = macAddress;
+			this.ligado = false;
+			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
+		} else {
+			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
+		}
 	}
 	
 	public void enviar(Pacote pacote) {

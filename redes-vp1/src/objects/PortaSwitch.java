@@ -1,10 +1,12 @@
 package objects;
 
+import java.security.InvalidAlgorithmParameterException;
+
 public class PortaSwitch extends Porta {
 
 	private Switch swi;
 	
-	public PortaSwitch(String macAddress, Switch swi) {
+	public PortaSwitch(String macAddress, Switch swi) throws InvalidAlgorithmParameterException {
 		super(macAddress);
 		this.swi = swi;
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new PortaSwitch");

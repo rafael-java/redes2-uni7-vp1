@@ -11,10 +11,12 @@ public class Host {
 	private Queue<Pacote> fila =  new LinkedList<Pacote>();
 	
 	public Host() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new Host");
 	}
 
 	public void enviar(String ipDestino, String payload) {
-		
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: enviar (host)");
+
 		Pacote pkg = new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload);
 		String macDestino = buscarARP(ipDestino);
 		Pacote pkgToSend = null;
@@ -25,6 +27,7 @@ public class Host {
 			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
 			pkgToSend = arpPkg;
 			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
+			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: adicionar pacote na fila");
 		}
 		
 		this.portaHost.enviar(pkgToSend);
@@ -34,22 +37,27 @@ public class Host {
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
 		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
 
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: receber");
+
 		ler(pacote);
 	}
 	
 	public void ler(Pacote pacote) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: ler pacote");
 		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
 			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
 				Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);
 				this.portaHost.enviar(pReply);
+				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Enviar request arp");
+
 			}
-			
 			
 		}
 		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
+				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Enviar reply arp");
 			}
 		} else {
 			System.out.println("Recebendo Pacote Original");
@@ -61,11 +69,13 @@ public class Host {
 	}
 	
 	private String buscarARP(String ip) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: buscar arp (host)");
 		String buscado = this.tabArp.get(ip);
 		return buscado;
 	}
 	
 	private Porta buscarEnc(String macAddress) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: buscar enc (host)");
 		Porta buscado = this.tabEnc.get(macAddress);
 		return buscado;
 	}

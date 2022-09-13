@@ -7,7 +7,6 @@ import objects.Cabo;
 import objects.Host;
 import objects.PortaHost;
 import objects.PortaSwitch;
-import objects.Singleton;
 import objects.Switch;
 
 public class Main {
