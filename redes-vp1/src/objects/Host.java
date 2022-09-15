@@ -15,46 +15,69 @@ public class Host {
 	}
 
 	public void enviar(String ipDestino, String payload) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Host.enviar(getPrimeiraPortaDesconectada)");
-
+		System.out.println("Host.enviar(String ipDestino, String payload)");
+		System.out.println("Host -> new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload)");
 		Pacote pkg = new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload);
+		System.out.println("Host <-- pkg");
+		System.out.println("Host -> Host.buscarARP(ipDestino)");
 		String macDestino = buscarARP(ipDestino);
+		System.out.println("Host <-- macDestino");
+		System.out.println("Host - Critica, macDestino != null");
 		if(macDestino != null) {
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Chamou o pkg.setMacDestino(macDestino)");
-
+			System.out.println("Host -> pkg.setMacDestino(macDestino)");
 			pkg.setMacDestino(macDestino);
+			
+			System.out.println("Host -> portaHost.enviar(pkg)");
 			this.portaHost.enviar(pkg);
 		} else {
+			
+			System.out.println("Host -> New Pacote(this.portaHost.getMacAddress(), \"FF:FF:FF:FF:FF:FF\", this.portaHost.getIp(), ipDestino, true) ");
 			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
+			System.out.println("Host <-- arpPkg");
+			System.out.println("Host -> adicionar pacote na fila");
 			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: adicionar pacote na fila");
+			
+			
+			System.out.println("Host -> portaHost.enviar(arpPkg");
 			this.portaHost.enviar(arpPkg);
 		}		
 	}
 	
 	public void receber(Pacote pacote, PortaHost portaHost) {
+		
+		System.out.println("PortaHost ->  Host.receber(pacote, portaHost)");
+		
+		System.out.println("Host ->  Host.tabEnc.put(MacOrigem, portaHost)");
+		System.out.println("Host ->  Host.tabArp.put(IpOrigem, MacOrigem)");
+		
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
-		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
+		this.tabArp.put(pacote.getIpOrigem(), pacote.getMacOrigem());
 
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: receber (host)");
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: salva nas tabs (hosts)");
+		
+		System.out.println("Host -> ler(pacote)");
 
 		ler(pacote);
 	}
 	
 	public void ler(Pacote pacote) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: ler pacote");
+		
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF") && pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
-				Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);
-				this.portaHost.enviar(pReply);
-				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Enviar request arp");
+			System.out.println("Host - Critica (pacote.getMacDestino().equals(\"FF:FF:FF:FF:FF:FF\") && pacote.getPayload().equals(\"Request\") && pacote.getIpDestino().equals(this.portaHost.getIp())");
+			System.out.println("Host -> New Pacote(this.portaHost.getMacAddress(), \"FF:FF:FF:FF:FF:FF\", this.portaHost.getIp(), ipDestino, true) ");	
+			Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);	
+			System.out.println("Host <-- rReply");
+			
+			System.out.println("Host -> PortaHost.enviar(pReply)");
+			this.portaHost.enviar(pReply);
 			}
+		
 		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
+			System.out.println("Host - Critica (pacote.getPayload().equals(\"Reply\") && pacote.getIpDestino().equals(this.portaHost.getIp()))");
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
-				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Se tiver item na fila, desinfilera");
+				System.out.println("Se tiver item na fila, desinfilera");
+				System.out.println("Host -> Host.enviar(IpDestino, Payload)");
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
-				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Enviar reply arp");
 			}
 		} else {
 			System.out.println("PARA TESTE: Recebendo Pacote Original");
