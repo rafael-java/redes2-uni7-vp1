@@ -68,10 +68,12 @@ public class Switch {
 	}
 	
 	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: encaminhar (switch)");
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: encaminhar switch.(encaminhar(Pacote pacote, PortaSwitch Porta))");
 
 		// Enviar Pacote para PortaSwitch recebida.
 		Porta.enviar(pacote);
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Porta.enviar(pacote)");
+
 	}
 
 	private void broadcast(Pacote pacote) {
@@ -83,51 +85,60 @@ public class Switch {
 
 		for (PortaSwitch portaSwitch : this.getPorts()) {
 			if(portaSwitch.getCabo() != null) {
+				
 				this.encaminhar(pacote, portaSwitch);
+				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: this.encaminhar(pacote, portaSwitch) ");
 			}
 			
 		}
 	}
 	
 	private String buscarARP(String ip) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca arp (switch)");
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca arp (switch.buscarARP(IP)");
 
 		String buscado = this.tabArp.get(ip);
 		return buscado;
 	}
 
 	private PortaSwitch buscarEnc(String macAddress) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca enc (switch)");
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: busca enc Switch.(PortaSwitch buscarEnc(String macAddress))");
 
 		PortaSwitch buscado = this.tabEnc.get(macAddress);
 		return buscado;
 	}
 
 	public Queue<Pacote> getFila() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Queue<Pacote> getFila()");
 		return fila;
 	}
 
 	public void setFila(Queue<Pacote> fila) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setFila(Queue<Pacote> fila)");
 		this.fila = fila;
 	}
 
 	public Map<String, String> getTabArp() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Map<String, String> getTabArp() ");
 		return tabArp;
 	}
 
 	public void setTabArp(Map<String, String> tabArp) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setTabArp(Map<String, String> tabArp)");
 		this.tabArp = tabArp;
 	}
 
 	public Map<String, PortaSwitch> getTabEnc() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Map<String, PortaSwitch> getTabEnc()");
 		return tabEnc;
 	}
 
 	public void setTabEnc(Map<String, PortaSwitch> tabEnc) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setTabEnc(Map<String, PortaSwitch> tabEnc)");
 		this.tabEnc = tabEnc;
 	}
 
 	public List<PortaSwitch> getPorts() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:List<PortaSwitch> getPorts()");
 		return ports;
 	}
 

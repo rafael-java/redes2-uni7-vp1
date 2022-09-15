@@ -43,6 +43,7 @@ public class Main {
 		    swi.setPorts(ports);
 		    
 		    try {
+		    	System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: PortaSwitch");
 		    	PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
 				cabo1.atrelar(portaHost, portaDesconectada1);
 				
@@ -63,6 +64,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: PortaSwitch");
 	    Scanner sc = new Scanner(System.in);
 	    System.out.print("Digite um Payload:");
 	    String payload = sc.nextLine();

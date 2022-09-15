@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Host {
+	System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Host");
 
 	private HashMap<String, String> tabArp = new HashMap<>();
 	private HashMap<String, Porta> tabEnc = new HashMap<>();
@@ -82,34 +83,42 @@ public class Host {
 
 	
 	public HashMap<String, String> getTabArp() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:HashMap<String, String> getTabArp()");
 		return tabArp;
 	}
 
 	public void setTabArp(HashMap<String, String> tabArp) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setTabArp(HashMap<String, String> tabArp)");
 		this.tabArp = tabArp;
 	}
 
 	public HashMap<String, Porta> getTabEnc() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:HashMap<String, Porta> getTabEnc()");
 		return tabEnc;
 	}
 
 	public void setTabEnc(HashMap<String, Porta> tabEnc) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setTabEnc(HashMap<String, Porta> tabEnc)");
 		this.tabEnc = tabEnc;
 	}
 
 	public PortaHost getPortaHost() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:PortaHost getPortaHost()");
 		return portaHost;
 	}
 
 	public void setPortaHost(PortaHost portaHost) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setPortaHost(PortaHost portaHost)");
 		this.portaHost = portaHost;
 	}
 
 	public Queue<Pacote> getFila() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Queue<Pacote> getFila()");
 		return fila;
 	}
 
 	public void setFila(Queue<Pacote> fila) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setFila(Queue<Pacote> fila)");
 		this.fila = fila;
 	}
 	

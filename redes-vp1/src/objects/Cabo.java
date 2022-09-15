@@ -34,18 +34,22 @@ public class Cabo {
 	}
 
 	public Porta getPonta1() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Porta getPonta1()");
 		return ponta1;
 	}
 
 	public void setPonta1(Porta ponta1) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setPonta1(Porta ponta1)");
 		this.ponta1 = ponta1;
 	}
 
 	public Porta getPonta2() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Porta getPonta2()");
 		return ponta2;
 	}
 
 	public void setPonta2(Porta ponta2) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setPonta2(Porta ponta2)");
 		this.ponta2 = ponta2;
 	}
 

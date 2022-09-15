@@ -19,10 +19,12 @@ public class PortaHost extends Porta {
 	}
 	
 	public Host getHost() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:");
 		return host;
 	}
 
 	public void setHost(Host host) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:");
 		this.host = host;
 	}
 
@@ -34,10 +36,12 @@ public class PortaHost extends Porta {
 	}
 
 	public String getIp() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: String getIp()");
 		return ip;
 	}
 
 	public void setIp(String ip) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setIp(String ip)");
 		this.ip = ip;
 	}
 }

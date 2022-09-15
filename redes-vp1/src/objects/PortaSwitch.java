@@ -13,10 +13,12 @@ public class PortaSwitch extends Porta {
 	}
 
 	public Switch getSwi() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Switch getSwi()");
 		return swi;
 	}
 
 	public void setSwi(Switch swi) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setSwi(Switch swi)");
 		this.swi = swi;
 	}
 

@@ -31,22 +31,27 @@ public class Pacote {
 	}
 
 	public String getMacOrigem() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:String getMacOrigem()");
 		return macOrigem;
 	}
 
 	public void setMacOrigem(String macOrigem) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setMacOrigem(String macOrigem)");
 		this.macOrigem = macOrigem;
 	}
 
 	public String getIpOrigem() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:String getIpOrigem()");
 		return ipOrigem;
 	}
 
 	public void setIpOrigem(String ipOrigem) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setIpOrigem(String ipOrigem)");
 		this.ipOrigem = ipOrigem;
 	}
 
 	public String getMacDestino() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:String getMacDestino()");
 		return macDestino;
 	}
 
@@ -57,18 +62,22 @@ public class Pacote {
 	}
 
 	public String getIpDestino() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:String getIpDestino()");
 		return ipDestino;
 	}
 
 	public void setIpDestino(String ipDestino) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setIpDestino(String ipDestino)");
 		this.ipDestino = ipDestino;
 	}
 
 	public String getPayload() {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:String getPayload()");
 		return payload;
 	}
 
 	public void setPayload(String payload) {
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setPayload(String payload)");
 		this.payload = payload;
 	}
 }
