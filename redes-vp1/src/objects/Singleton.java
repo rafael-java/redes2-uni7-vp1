@@ -10,12 +10,12 @@ public final class Singleton {
 	private static List<String> values;
 
 	private Singleton(List<String> values) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Singleton(List<String> values)");
-		this.values = values;
+		System.out.println("new Singleton(List<String> values)");
+		Singleton.values = values;
 	}
 
 	public static Singleton getInstance() {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:  Singleton getInstance()");
+		System.out.println("Singleton Singleton.getInstance()");
 		if (instance == null) {
 			List<String> values = new ArrayList<String>();
 			instance = new Singleton(values);
@@ -24,7 +24,7 @@ public final class Singleton {
 	}
 
 	public static boolean checkIfExists(String value) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: checkIfExists(String value)");
+		System.out.println("Singleton.checkIfExists(String value)");
 		if (values.contains(value)) {
 			return true;
 		} else {
@@ -34,7 +34,7 @@ public final class Singleton {
 	}
 
 	public static boolean checkIfExists(Integer value) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: checkIfExists(Integer value)");
+		System.out.println("Singleton.checkIfExists(Integer value)");
 		String val = value.toString();
 		return checkIfExists(val);		
 	}

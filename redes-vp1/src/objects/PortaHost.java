@@ -12,36 +12,36 @@ public class PortaHost extends Porta {
 		if (!Singleton.getInstance().checkIfExists(ip)) {
 			this.ip = ip;
 			this.host = host;
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new PortaHost");
+			System.out.println("new PortaHost");
 		} else {
 			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
 		}
 	}
 	
 	public Host getHost() {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:");
+		System.out.println("PortaHost.getHost");
 		return host;
 	}
 
 	public void setHost(Host host) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:");
+		System.out.println("PortaHost.setHost(Host host)");
 		this.host = host;
 	}
 
 	@Override
 	public void receber(Pacote pacote) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: receber (porta host)");
+		System.out.println("PortaHost.receber (porta host)");
 
 		this.host.receber(pacote, this);
 	}
 
 	public String getIp() {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: String getIp()");
+		System.out.println("PortaHost.getIp()");
 		return ip;
 	}
 
 	public void setIp(String ip) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setIp(String ip)");
+		System.out.println("PortaHost.setIp(String ip)");
 		this.ip = ip;
 	}
 }
