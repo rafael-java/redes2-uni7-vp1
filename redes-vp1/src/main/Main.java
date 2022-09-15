@@ -66,16 +66,16 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-//	    Scanner sc = new Scanner(System.in);
-//	    System.out.print("Digite um Payload:");
-//	    String payload = sc.nextLine();
+	    Scanner sc = new Scanner(System.in);
+	    System.out.print("Digite um Payload:");
+	    String payload = sc.nextLine();
+	    
+	    System.out.print("Digite um ip:");
+	    String ip = sc.nextLine();
 	    
 	    enviar("a","ip2");
 	    
-//	    System.out.print("Digite um ip:");
-
-	    
-//	    sc.close(); //Encerra o scanner
+	    sc.close(); //Encerra o scanner
 
 	}
 
