@@ -11,10 +11,10 @@ import objects.Switch;
 
 public class Main {
 	
-	public static void enviar(String payload, String ipDestino) {
+	public static void enviar() {
 		
 		try {
-			System.out.println("Método enviar do main");
+			System.out.println("Método enviar do main(Payload, ipDestino)");
 			
 			Cabo cabo1 = new Cabo();
 		    
@@ -24,16 +24,21 @@ public class Main {
 
 			Switch swi = new Switch();
 		    List<PortaSwitch> switchPorts = new ArrayList<PortaSwitch>();
-			System.out.println("new List Porta Switch");
-		    
-		    PortaSwitch portaSwitch1 = new PortaSwitch("macAddress123",swi);
-		    PortaSwitch portaSwitch2 = new PortaSwitch("macAddress1984721864123",swi);
-		    PortaSwitch portaSwitch3 = new PortaSwitch("mackasjdlasjdo2356",swi);
-		    
-		    switchPorts.add(portaSwitch1);
-		    switchPorts.add(portaSwitch2);
-		    switchPorts.add(portaSwitch3);
-			System.out.println("Add Porta Switch na lista");
+			System.out.println("new List PortaSwitch");
+			
+			for(Integer i=0;i<=2;i++) {
+				PortaSwitch portaSwitch1 = new PortaSwitch("macAddress123"+i.toString(),swi);
+				System.out.println("Add Porta Switch na lista");
+				switchPorts.add(portaSwitch1);
+			}
+//		    PortaSwitch portaSwitch1 = new PortaSwitch("macAddress123",swi);
+//		    PortaSwitch portaSwitch2 = new PortaSwitch("macAddress1984721864123",swi);
+//		    PortaSwitch portaSwitch3 = new PortaSwitch("mackasjdlasjdo2356",swi);
+//		    
+//		    switchPorts.add(portaSwitch1);
+//		    switchPorts.add(portaSwitch2);
+//		    switchPorts.add(portaSwitch3);
+			
 		    
 		    swi.setPorts(switchPorts);
 		    
@@ -43,7 +48,6 @@ public class Main {
 			PortaHost portaDestino = new PortaHost("macAddress2", "ip2", hostDestino);
 			hostDestino.setPortaHost(portaDestino);
 			
-		    
 		    try {
 		    	System.out.println("PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada()");
 		    	PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
@@ -55,9 +59,20 @@ public class Main {
 				System.out.println("Error, não tem portas deconectadas");
 			}
 		    
-		    hostOrigem.enviar(ipDestino, payload);
-		    hostOrigem.enviar(ipDestino, payload+"2");
-		    hostDestino.enviar(ipDestino, payload+"@3");
+	    	Scanner sc = new Scanner(System.in);
+
+		    while (true) {
+		    	System.out.println("--------------------------------------------");
+			    System.out.print("Digite um Payload:");
+			    String payload = sc.nextLine();
+			    
+			    System.out.print("Digite um ip:");
+			    String ipDestino = sc.nextLine();
+			    
+			    hostOrigem.enviar(ipDestino, payload);
+			    
+		    }
+		    
 		} catch (Exception e) {
 			System.out.println("Error   " + e.getMessage());
 		}   
@@ -65,18 +80,7 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		
-	    Scanner sc = new Scanner(System.in);
-	    System.out.print("Digite um Payload:");
-	    String payload = sc.nextLine();
-	    
-	    System.out.print("Digite um ip:");
-	    String ip = sc.nextLine();
-	    
-	    enviar("a","ip2");
-	    
-	    sc.close(); //Encerra o scanner
-
+		enviar();
 	}
 
 }

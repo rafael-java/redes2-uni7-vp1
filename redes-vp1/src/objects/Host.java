@@ -61,7 +61,7 @@ public class Host {
 		
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF") && pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
 			System.out.println("Host - if (pacote.getMacDestino().equals(\"FF:FF:FF:FF:FF:FF\") && pacote.getPayload().equals(\"Request\") && pacote.getIpDestino().equals(this.portaHost.getIp())");
-			System.out.println("Host -> new Pacote(this.portaHost.getMacAddress(), \"FF:FF:FF:FF:FF:FF\", this.portaHost.getIp(), ipDestino, true) ");	
+			System.out.println("Host -> new Pacote(this.portaHost.getMacAddress(), \"FF:FF:FF:FF:FF:FF\", this.portaHost.getIp(), ipDestino, false) ");	
 			Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);	
 			System.out.println("Host <-- pReply");
 			
@@ -78,7 +78,7 @@ public class Host {
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
 			}
 		} else {
-			System.out.println("PARA TESTE: Recebendo Pacote Original");
+			System.out.println("PARA TESTE: Entrou no else por ser o destinatario ou o receptor");
 			System.out.println("PARA TESTE: Host:"+this.portaHost.getMacAddress());
 			System.out.println("PARA TESTE: Pacote Payload " + pacote.getPayload());
 		}

@@ -17,11 +17,11 @@ public class Cabo {
 			if (ponta1.equals(origem)) {
 				System.out.println("if ponta1.equals(origem)");
 				System.out.println("ponta2.receber(pacote)");
-				ponta2.receber(pacote);
+				this.getPonta2().receber(pacote);
 			} else {
 				System.out.println("if ponta2.equals(origem)");
 				System.out.println("ponta1.receber(pacote)");
-				ponta1.receber(pacote);
+				this.getPonta1().receber(pacote);
 			}
 		} else { throw new NullPointerException(); }
 	}
