@@ -23,19 +23,13 @@ public class Switch {
 	public PortaSwitch getPrimeiraPortaDesconectada() throws NullPointerException {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: getPrimeiraPortaDesconectada");
 
-		PortaSwitch portaReturned = null;
 		for (PortaSwitch porta : this.ports) {
 			if (!porta.getLigado()) {
-				portaReturned = porta;
-				break;
+				return porta;
 			}
 		}
-
-		if (portaReturned != null) {
-			return portaReturned;
-		} else {
-			throw new NullPointerException();
-		}
+		
+		throw new NullPointerException();
 
 	}
 
@@ -46,6 +40,8 @@ public class Switch {
 		// ARP - MAC, IP
 		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e
 		// Ip/Mac Address
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: salva nas tabs (switch)");
+
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
 		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
 
