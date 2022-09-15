@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Host {
-	System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Host");
 
 	private HashMap<String, String> tabArp = new HashMap<>();
 	private HashMap<String, Porta> tabEnc = new HashMap<>();
@@ -16,11 +15,13 @@ public class Host {
 	}
 
 	public void enviar(String ipDestino, String payload) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: enviar (host)");
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Host.enviar(getPrimeiraPortaDesconectada)");
 
 		Pacote pkg = new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload);
 		String macDestino = buscarARP(ipDestino);
 		if(macDestino != null) {
+			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Chamou o pkg.setMacDestino(macDestino)");
+
 			pkg.setMacDestino(macDestino);
 			this.portaHost.enviar(pkg);
 		} else {
