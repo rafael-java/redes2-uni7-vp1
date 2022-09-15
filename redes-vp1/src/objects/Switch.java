@@ -46,6 +46,8 @@ public class Switch {
 		// ARP - MAC, IP
 		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e
 		// Ip/Mac Address
+		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: salva nas tabs (switch)");
+
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
 		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
 
