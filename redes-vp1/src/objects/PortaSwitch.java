@@ -9,16 +9,16 @@ public class PortaSwitch extends Porta {
 	public PortaSwitch(String macAddress, Switch swi) throws InvalidAlgorithmParameterException {
 		super(macAddress);
 		this.swi = swi;
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new PortaSwitch");
+		System.out.println("new PortaSwitch");
 	}
 
 	public Switch getSwi() {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:Switch getSwi()");
+		System.out.println("Switch PortaSwitch.getSwi()");
 		return swi;
 	}
 
 	public void setSwi(Switch swi) {
-		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA:setSwi(Switch swi)");
+		System.out.println("Switch PortaSwitch.setSwi(Switch swi)");
 		this.swi = swi;
 	}
 
