@@ -14,7 +14,7 @@ public class Main {
 	public static void enviar(String payload, String ipDestino) {
 		
 		try {
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Método enviar do main");
+			System.out.println("Método enviar do main");
 			
 			Cabo cabo1 = new Cabo();
 		    
@@ -24,7 +24,7 @@ public class Main {
 
 			Switch swi = new Switch();
 		    List<PortaSwitch> switchPorts = new ArrayList<PortaSwitch>();
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: new List Porta Switch");
+			System.out.println("new List Porta Switch");
 		    
 		    PortaSwitch portaSwitch1 = new PortaSwitch("macAddress123",swi);
 		    PortaSwitch portaSwitch2 = new PortaSwitch("macAddress1984721864123",swi);
@@ -33,7 +33,7 @@ public class Main {
 		    switchPorts.add(portaSwitch1);
 		    switchPorts.add(portaSwitch2);
 		    switchPorts.add(portaSwitch3);
-			System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: add Porta Switch na lista");
+			System.out.println("Add Porta Switch na lista");
 		    
 		    swi.setPorts(switchPorts);
 		    
@@ -45,7 +45,7 @@ public class Main {
 			
 		    
 		    try {
-		    	System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: PortaSwitch");
+		    	System.out.println("PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada()");
 		    	PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
 				cabo1.atrelar(portaOrigem, portaDesconectada1);
 				
