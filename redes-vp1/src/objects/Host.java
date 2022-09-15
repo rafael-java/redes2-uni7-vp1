@@ -11,7 +11,7 @@ public class Host {
 	private Queue<Pacote> fila =  new LinkedList<Pacote>();
 	
 	public Host() {
-		System.out.println("new Host");
+		System.out.println("new Host()");
 	}
 
 	public void enviar(String ipDestino, String payload) {

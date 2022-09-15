@@ -9,7 +9,8 @@ public class PortaSwitch extends Porta {
 	public PortaSwitch(String macAddress, Switch swi) throws InvalidAlgorithmParameterException {
 		super(macAddress);
 		this.swi = swi;
-		System.out.println("new PortaSwitch");
+		System.out.println("new PortaSwitch(String macAddress, Switch swi)");
+		System.out.println("throws InvalidAlgorithmParameterException");
 	}
 
 	public Switch getSwi() {

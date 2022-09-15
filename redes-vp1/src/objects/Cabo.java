@@ -6,7 +6,7 @@ public class Cabo {
 
 	public Cabo() {
 		super();
-		System.out.println("new Cabo");
+		System.out.println("new Cabo()");
 	}
 
 	public void transmitir(Pacote pacote, Porta origem) {

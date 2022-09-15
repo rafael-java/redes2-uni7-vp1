@@ -12,7 +12,8 @@ public class PortaHost extends Porta {
 		if (!Singleton.getInstance().checkIfExists(ip)) {
 			this.ip = ip;
 			this.host = host;
-			System.out.println("new PortaHost");
+			System.out.println("new PortaHost(String macAddress, String ip, Host host)");
+			System.out.println("throws InvalidAlgorithmParameterException");
 		} else {
 			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
 		}

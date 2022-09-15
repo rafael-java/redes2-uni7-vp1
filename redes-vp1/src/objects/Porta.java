@@ -18,6 +18,7 @@ public abstract class Porta {
 		} else {
 			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
 		}
+		System.out.println("throws InvalidAlgorithmParameterException");
 	}
 	
 	public void enviar(Pacote pacote) {
