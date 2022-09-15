@@ -37,21 +37,16 @@ public class Host {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: receber (host)");
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: salva nas tabs (hosts)");
 
-
 		ler(pacote);
 	}
 	
 	public void ler(Pacote pacote) {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: ler pacote");
-		if(pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
-			if(pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
+		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF") && pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
 				Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);
 				this.portaHost.enviar(pReply);
 				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Enviar request arp");
-
 			}
-			
-		}
 		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
@@ -60,9 +55,9 @@ public class Host {
 				System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: Enviar reply arp");
 			}
 		} else {
-			System.out.println("Recebendo Pacote Original");
-			System.out.println("Host:"+this.portaHost.getMacAddress());
-			System.out.println("Pacote Payload " + pacote.getPayload());
+			System.out.println("PARA TESTE: Recebendo Pacote Original");
+			System.out.println("PARA TESTE: Host:"+this.portaHost.getMacAddress());
+			System.out.println("PARA TESTE: Pacote Payload " + pacote.getPayload());
 		}
 		
 		// Ao Receber o ArpReply optivemos por ser unicast

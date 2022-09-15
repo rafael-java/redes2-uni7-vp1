@@ -23,19 +23,13 @@ public class Switch {
 	public PortaSwitch getPrimeiraPortaDesconectada() throws NullPointerException {
 		System.out.println("PARA CHECAR NO DIAGRAMA DE SEQUENCIA: getPrimeiraPortaDesconectada");
 
-		PortaSwitch portaReturned = null;
 		for (PortaSwitch porta : this.ports) {
 			if (!porta.getLigado()) {
-				portaReturned = porta;
-				break;
+				return porta;
 			}
 		}
-
-		if (portaReturned != null) {
-			return portaReturned;
-		} else {
-			throw new NullPointerException();
-		}
+		
+		throw new NullPointerException();
 
 	}
 
