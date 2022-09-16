@@ -28,10 +28,10 @@ public class Host {
 			
 			System.out.println("Não encontrado o Mac Destino na ARP table...");
 
-			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
-
 			System.out.println("Adicionando o pacote anterior em fila de pacotes do Host...");
 			fila.add(pkg);
+			
+			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
 			
 			this.portaHost.enviar(arpPkg);
 		}		
@@ -41,10 +41,10 @@ public class Host {
 		
 		System.out.println("Host recebendo o pacote...");
 		
-		System.out.println("Colocando na ENC table os dados do \"acusado\"...");
+		System.out.println("Colocando na ENC table os dados do \"acusado\", caso já não estejam......");
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
 		
-		System.out.println("Colocando na ARP table os dados do \"acusado\"...");
+		System.out.println("Colocando na ARP table os dados do \"acusado\", caso já não estejam......");
 		this.tabArp.put(pacote.getIpOrigem(), pacote.getMacOrigem());
 
 		ler(pacote);
@@ -55,7 +55,7 @@ public class Host {
 		System.out.println("Host lendo o pacote...");
 
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF") && pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
-			System.out.println("Pacote é um ARP request, e o host é o destinatário...");
+			System.out.println("Pacote é um ARP request, e o host ("+this.getPortaHost().getMacAddress()+") é o destinatário...");
 			Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);	
 			
 			this.portaHost.enviar(pReply);
@@ -65,14 +65,24 @@ public class Host {
 			System.out.println("Host recebeu um pacote reply, será que isso atualizou algo para os pacotes que estavam na fila? Vamos ver...");
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
+				System.out.println("");
 				System.out.println("Há pacote na fila, obtendo pacote...");
 				System.out.println("Tentando o envio...");
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
 			}
 		} else {
 			System.out.println("O host é o destinatario ou o receptor, não é papel da camada de enlace lidar com isso");
-			System.out.println("PARA TESTE: Host:"+this.portaHost.getMacAddress());
-			System.out.println("PARA TESTE: Pacote Payload " + pacote.getPayload());
+			System.out.println("      PARA TESTE:      \n "
+							+  "______________Pacote______________");
+			System.out.println("| IP Destino: "+pacote.getIpDestino());
+			System.out.println("| IP Origem: "+pacote.getIpOrigem());
+			System.out.println("| MAC Destino: "+pacote.getMacDestino());
+			System.out.println("| MAC Origem: "+pacote.getMacOrigem());
+			System.out.println("| Payload: "+pacote.getPayload());
+			System.out.println("__________Placa deste host_________");
+			System.out.println("| MAC: "+this.portaHost.getMacAddress());
+			System.out.println("| IP: "+this.portaHost.getIp());
+			System.out.println("-----------------------------------------");
 		}
 		
 		// Ao Receber o ArpReply optivemos por ser unicast

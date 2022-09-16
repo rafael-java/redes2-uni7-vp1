@@ -18,12 +18,10 @@ public class PortaHost extends Porta {
 	}
 	
 	public Host getHost() {
-		System.out.println("PortaHost.getHost");
 		return host;
 	}
 
 	public void setHost(Host host) {
-		System.out.println("PortaHost.setHost(Host host)");
 		this.host = host;
 	}
 
