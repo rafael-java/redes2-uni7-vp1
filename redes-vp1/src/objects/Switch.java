@@ -65,8 +65,15 @@ public class Switch {
 			} else {
 				System.out.println("porta <-- Switch -> this.buscarEnc(macDes)");
 				PortaSwitch porta = this.buscarEnc(macDes);
-				System.out.println("Switch -> this.encaminhar(pacote, porta)");
-				this.encaminhar(pacote, porta);
+				
+				if (porta == null) {
+					this.broadcast(pacote);
+				} 
+				
+				else {
+					System.out.println("Switch -> this.encaminhar(pacote, porta)");
+					this.encaminhar(pacote, porta);
+				}
 			}
 		}
 	}
