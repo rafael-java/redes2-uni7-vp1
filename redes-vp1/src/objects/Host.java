@@ -28,10 +28,10 @@ public class Host {
 			
 			System.out.println("Não encontrado o Mac Destino na ARP table...");
 
-			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
-
 			System.out.println("Adicionando o pacote anterior em fila de pacotes do Host...");
 			fila.add(pkg);
+			
+			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
 			
 			this.portaHost.enviar(arpPkg);
 		}		
@@ -55,7 +55,7 @@ public class Host {
 		System.out.println("Host lendo o pacote...");
 
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF") && pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
-			System.out.println("Pacote é um ARP request, e o host é o destinatário...");
+			System.out.println("Pacote é um ARP request, e o host ("+this.getPortaHost().getMacAddress()+") é o destinatário...");
 			Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);	
 			
 			this.portaHost.enviar(pReply);
@@ -65,6 +65,7 @@ public class Host {
 			System.out.println("Host recebeu um pacote reply, será que isso atualizou algo para os pacotes que estavam na fila? Vamos ver...");
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
+				System.out.println("");
 				System.out.println("Há pacote na fila, obtendo pacote...");
 				System.out.println("Tentando o envio...");
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());

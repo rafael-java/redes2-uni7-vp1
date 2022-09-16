@@ -79,7 +79,7 @@ public class Switch {
 	
 	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
 		System.out.println("");
-		System.out.println("Switch encaminhando o pacote para a porta do switch...");
+		System.out.println("Switch encaminhando o pacote para a próxima porta switch...");
 
 		Porta.enviar(pacote);
 	}

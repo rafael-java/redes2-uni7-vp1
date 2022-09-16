@@ -8,6 +8,7 @@ public class Pacote {
 	private String payload;
 
 	public Pacote(String macOrigem, String ipOrigem, String ipDestino, String payload) {
+		System.out.println("");
 		System.out.println("Criando um pacote sem MAC destino...");
 
 		this.macOrigem = macOrigem;
@@ -28,6 +29,7 @@ public class Pacote {
 			this.payload = "Reply";
 		}
 		
+		System.out.println("");
 		System.out.println("Criando um pacote com MAC destino "+ macDestino + ", e com payload \"" + this.payload + "\"...");
 	}
 	
