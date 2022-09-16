@@ -6,59 +6,51 @@ public class Cabo {
 
 	public Cabo() {
 		super();
-		System.out.println("new Cabo()");
 	}
 
 	public void transmitir(Pacote pacote, Porta origem) {
-		System.out.println("Cabo.transmitir(Pacote pacote, Porta origem)");
-		System.out.println("Pode lançar uma excessao");
+		System.out.println("Transmitindo pelo cabo...");
 		
 		if (ponta1 != null && ponta2 != null && ponta1.getLigado() && ponta2.getLigado()) {
 			if (ponta1.equals(origem)) {
-				System.out.println("if ponta1.equals(origem)");
-				System.out.println("ponta2.receber(pacote)");
+				System.out.println("... para a porta 2, que é do tipo " + this.getPonta2().getClass().getName());
 				this.getPonta2().receber(pacote);
 			} else {
-				System.out.println("if ponta2.equals(origem)");
-				System.out.println("ponta1.receber(pacote)");
+				System.out.println("... para a porta 1, que é do tipo " + this.getPonta1().getClass().getName());
 				this.getPonta1().receber(pacote);
 			}
 		} else { throw new NullPointerException(); }
 	}
 
 	public void atrelar(Porta ponta1, Porta ponta2) {
-		System.out.println("Cabo.atrelar(Porta ponta1, Porta ponta2)");
+		System.out.println("Atrelando pontas do cabo");
 
 		this.ponta1 = ponta1;
+		System.out.println("Ponta 1 = " + ponta1.getClass().getName());
 		this.ponta2 = ponta2;
-		System.out.println("ponta1.set...");
-
+		System.out.println("Ponta 2 = " + ponta2.getClass().getName());
+		
 		ponta1.setLigado(true);
 		ponta1.setCabo(this);
 		
-		System.out.println("ponta2.set...");
 		ponta2.setLigado(true);
 		ponta2.setCabo(this);
 		
 	}
 
 	public Porta getPonta1() {
-		System.out.println("Cabo.getPonta1()");
 		return ponta1;
 	}
 
 	public void setPonta1(Porta ponta1) {
-		System.out.println("Cabo.setPonta1");
 		this.ponta1 = ponta1;
 	}
 
 	public Porta getPonta2() {
-		System.out.println("Cabo.getPonta2()");
 		return ponta2;
 	}
 
 	public void setPonta2(Porta ponta2) {
-		System.out.println("Cabo.setPonta2(Porta ponta2)");
 		this.ponta2 = ponta2;
 	}
 

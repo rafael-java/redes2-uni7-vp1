@@ -12,8 +12,6 @@ public class PortaHost extends Porta {
 		if (!Singleton.getInstance().checkIfExists(ip)) {
 			this.ip = ip;
 			this.host = host;
-			System.out.println("new PortaHost(String macAddress, String ip, Host host)");
-			System.out.println("throws InvalidAlgorithmParameterException");
 		} else {
 			throw new InvalidAlgorithmParameterException("Mac ou ip já existe na rede");
 		}
@@ -30,19 +28,23 @@ public class PortaHost extends Porta {
 	}
 
 	@Override
+	public void enviar(Pacote pacote) {
+		System.out.println("Porta host enviando...");
+		super.enviar(pacote);
+	}
+	
+	@Override
 	public void receber(Pacote pacote) {
-		System.out.println("PortaHost.receber (porta host)");
+		System.out.println("Recebendo na porta host...");
 
 		this.host.receber(pacote, this);
 	}
 
 	public String getIp() {
-		System.out.println("PortaHost.getIp()");
 		return ip;
 	}
 
 	public void setIp(String ip) {
-		System.out.println("PortaHost.setIp(String ip)");
 		this.ip = ip;
 	}
 }

@@ -11,74 +11,66 @@ public class Host {
 	private Queue<Pacote> fila =  new LinkedList<Pacote>();
 	
 	public Host() {
-		System.out.println("new Host()");
 	}
 
 	public void enviar(String ipDestino, String payload) {
-		System.out.println("Host.enviar(String ipDestino, String payload)");
-		System.out.println("Host -> new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload)");
+		System.out.println("Host enviando...");
 		Pacote pkg = new Pacote(this.portaHost.getMacAddress(), this.portaHost.getIp(), ipDestino, payload);
-		System.out.println("Host <-- pkg");
-		System.out.println("Host -> Host.buscarARP(ipDestino)");
+
 		String macDestino = buscarARP(ipDestino);
-		System.out.println("Host <-- macDestino");
-		System.out.println("Host - if macDestino != null");
+
 		if(macDestino != null) {
-			System.out.println("Host -> pkg.setMacDestino(macDestino)");
+			System.out.println("Encontrado o Mac Destino na ARP table...");
 			pkg.setMacDestino(macDestino);
 			
-			System.out.println("Host -> this.portaHost.enviar(pkg)");
 			this.portaHost.enviar(pkg);
 		} else {
 			
-			System.out.println("Host -> New Pacote(this.portaHost.getMacAddress(), \"FF:FF:FF:FF:FF:FF\", this.portaHost.getIp(), ipDestino, true) ");
+			System.out.println("Não encontrado o Mac Destino na ARP table...");
+
 			Pacote arpPkg = new Pacote(this.portaHost.getMacAddress(), "FF:FF:FF:FF:FF:FF", this.portaHost.getIp(), ipDestino, true);
-			System.out.println("Host <-- arpPkg");
-			System.out.println("Host -> fila.add(pkg)");
-			fila.add(pkg); // Adiciona na Fila o Pacote para que fique na espera de um ArpReply
+
+			System.out.println("Adicionando o pacote anterior em fila de pacotes do Host...");
+			fila.add(pkg);
 			
-			System.out.println("Host -> this.portaHost.enviar(arpPkg");
 			this.portaHost.enviar(arpPkg);
 		}		
 	}
 	
 	public void receber(Pacote pacote, PortaHost portaHost) {
 		
-		System.out.println("PortaHost -> Host.receber(pacote, portaHost)");
+		System.out.println("Host recebendo o pacote...");
 		
-		System.out.println("Host -> this.tabEnc.put(MacOrigem, portaHost)");
-		System.out.println("Host -> this.tabArp.put(IpOrigem, MacOrigem)");
-		
+		System.out.println("Colocando na ENC table os dados do \"acusado\"...");
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
+		
+		System.out.println("Colocando na ARP table os dados do \"acusado\"...");
 		this.tabArp.put(pacote.getIpOrigem(), pacote.getMacOrigem());
-
-		System.out.println("Host -> ler(pacote)");
 
 		ler(pacote);
 	}
 	
 	public void ler(Pacote pacote) {
 		
+		System.out.println("Host lendo o pacote...");
+
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF") && pacote.getPayload().equals("Request") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
-			System.out.println("Host - if (pacote.getMacDestino().equals(\"FF:FF:FF:FF:FF:FF\") && pacote.getPayload().equals(\"Request\") && pacote.getIpDestino().equals(this.portaHost.getIp())");
-			System.out.println("Host -> new Pacote(this.portaHost.getMacAddress(), \"FF:FF:FF:FF:FF:FF\", this.portaHost.getIp(), ipDestino, false) ");	
+			System.out.println("Pacote é um ARP request, e o host é o destinatário...");
 			Pacote pReply =  new Pacote(this.portaHost.getMacAddress(), pacote.getMacOrigem(), this.portaHost.getIp(), pacote.getIpOrigem(), false);	
-			System.out.println("Host <-- pReply");
 			
-			System.out.println("Host -> this.portaHost.enviar(pReply)");
 			this.portaHost.enviar(pReply);
 			}
 		
-		else if(pacote.getPayload().equals("Reply") && pacote.getIpDestino().equals(this.portaHost.getIp())) {
-			System.out.println("Host - if (pacote.getPayload().equals(\"Reply\") && pacote.getIpDestino().equals(this.portaHost.getIp()))");
+		else if(pacote.getPayload().equals("Reply")) {
+			System.out.println("Host recebeu um pacote reply, será que isso atualizou algo para os pacotes que estavam na fila? Vamos ver...");
 			for (Pacote pacote2 : fila) {
 				pacote2 = fila.poll();
-				System.out.println("fila.poll()");
-				System.out.println("Host -> this.enviar(pacote2.getIpDestino, pacote2.getPayload)");
+				System.out.println("Há pacote na fila, obtendo pacote...");
+				System.out.println("Tentando o envio...");
 				this.enviar(pacote2.getIpDestino(), pacote2.getPayload());
 			}
 		} else {
-			System.out.println("PARA TESTE: Entrou no else por ser o destinatario ou o receptor");
+			System.out.println("O host é o destinatario ou o receptor, não é papel da camada de enlace lidar com isso");
 			System.out.println("PARA TESTE: Host:"+this.portaHost.getMacAddress());
 			System.out.println("PARA TESTE: Pacote Payload " + pacote.getPayload());
 		}
@@ -87,57 +79,45 @@ public class Host {
 	}
 	
 	private String buscarARP(String ip) {
-		System.out.println("buscar arp (host)");
-		System.out.println("this.tabArp.get(ip");
-		String buscado = this.tabArp.get(ip);
-		return buscado;
+		System.out.println("Buscando na ARP table do host...");
+		return this.tabArp.get(ip);
 	}
 	
 	private Porta buscarEnc(String macAddress) {
-		System.out.println("Porta.buscarEnc(String macAddress)");
-		System.out.println("this.tabEnc.get(macAddress)");
-		Porta buscado = this.tabEnc.get(macAddress);
-		return buscado;
+		System.out.println("Buscando na ENC table do host...");
+		return this.tabEnc.get(macAddress);
 	}
 
 	
 	public HashMap<String, String> getTabArp() {
-		System.out.println("Host.HashMap<String, String> getTabArp()");
 		return tabArp;
 	}
 
 	public void setTabArp(HashMap<String, String> tabArp) {
-		System.out.println("Host.setTabArp(HashMap<String, String> tabArp)");
 		this.tabArp = tabArp;
 	}
 
 	public HashMap<String, Porta> getTabEnc() {
-		System.out.println("Host.HashMap<String, Porta> getTabEnc()");
 		return tabEnc;
 	}
 
 	public void setTabEnc(HashMap<String, Porta> tabEnc) {
-		System.out.println("Host.setTabEnc(HashMap<String, Porta> tabEnc)");
 		this.tabEnc = tabEnc;
 	}
 
 	public PortaHost getPortaHost() {
-		System.out.println("Host.PortaHost getPortaHost()");
 		return portaHost;
 	}
 
 	public void setPortaHost(PortaHost portaHost) {
-		System.out.println("Host.setPortaHost(PortaHost portaHost)");
 		this.portaHost = portaHost;
 	}
 
 	public Queue<Pacote> getFila() {
-		System.out.println("Host.Queue<Pacote> getFila()");
 		return fila;
 	}
 
 	public void setFila(Queue<Pacote> fila) {
-		System.out.println("Host.setFila(Queue<Pacote> fila)");
 		this.fila = fila;
 	}
 	
