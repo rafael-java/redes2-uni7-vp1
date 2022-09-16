@@ -62,12 +62,23 @@ public class Switch {
 				System.out.println("Localizou o MAC na tabela ARP...");
 				PortaSwitch porta = this.buscarEnc(macDes);
 
+				if (porta == null) {
+					System.out.println("Não localizou a porta na tabela ENC...");
+					this.broadcast(pacote);
+				} 
+				
+				else {
+					System.out.println("Localizou a porta na tabela ENC...");
+					this.encaminhar(pacote, porta);
+				}
+				
 				this.encaminhar(pacote, porta);
 			}
 		}
 	}
 	
 	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
+		System.out.println("");
 		System.out.println("Switch encaminhando o pacote para a porta do switch...");
 
 		Porta.enviar(pacote);

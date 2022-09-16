@@ -71,8 +71,17 @@ public class Host {
 			}
 		} else {
 			System.out.println("O host é o destinatario ou o receptor, não é papel da camada de enlace lidar com isso");
-			System.out.println("PARA TESTE: Host:"+this.portaHost.getMacAddress());
-			System.out.println("PARA TESTE: Pacote Payload " + pacote.getPayload());
+			System.out.println("      PARA TESTE:      \n "
+							+  "______________Pacote______________");
+			System.out.println("| IP Destino: "+pacote.getIpDestino());
+			System.out.println("| IP Origem: "+pacote.getIpOrigem());
+			System.out.println("| MAC Destino: "+pacote.getMacDestino());
+			System.out.println("| MAC Origem: "+pacote.getMacOrigem());
+			System.out.println("| Payload: "+pacote.getPayload());
+			System.out.println("__________Placa deste host_________");
+			System.out.println("| MAC: "+this.portaHost.getMacAddress());
+			System.out.println("| IP: "+this.portaHost.getIp());
+			System.out.println("-----------------------------------------");
 		}
 		
 		// Ao Receber o ArpReply optivemos por ser unicast

@@ -13,10 +13,10 @@ public class Cabo {
 		
 		if (ponta1 != null && ponta2 != null && ponta1.getLigado() && ponta2.getLigado()) {
 			if (ponta1.equals(origem)) {
-				System.out.println("... para a porta 2, que é do tipo " + this.getPonta2().getClass().getName());
+				System.out.println("... para a ponta 2, que é do tipo " + this.getPonta2().getClass().getName());
 				this.getPonta2().receber(pacote);
 			} else {
-				System.out.println("... para a porta 1, que é do tipo " + this.getPonta1().getClass().getName());
+				System.out.println("... para a ponta 1, que é do tipo " + this.getPonta1().getClass().getName());
 				this.getPonta1().receber(pacote);
 			}
 		} else { throw new NullPointerException(); }

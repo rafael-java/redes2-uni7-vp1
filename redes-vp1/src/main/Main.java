@@ -84,6 +84,9 @@ public class Main {
 			    	ipDestino = "150.30.79.5";
 			    }
 			    
+			    System.out.println("");
+			    System.out.println("");
+			    
 			    hostOrigem.enviar(ipDestino, payload);
 			    
 			    System.out.println("Continuando...");
