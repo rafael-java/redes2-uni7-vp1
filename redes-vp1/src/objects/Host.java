@@ -41,10 +41,10 @@ public class Host {
 		
 		System.out.println("Host recebendo o pacote...");
 		
-		System.out.println("Colocando na ENC table os dados do \"acusado\"...");
+		System.out.println("Colocando na ENC table os dados do \"acusado\", caso já não estejam......");
 		this.tabEnc.put(pacote.getMacOrigem(), portaHost);
 		
-		System.out.println("Colocando na ARP table os dados do \"acusado\"...");
+		System.out.println("Colocando na ARP table os dados do \"acusado\", caso já não estejam......");
 		this.tabArp.put(pacote.getIpOrigem(), pacote.getMacOrigem());
 
 		ler(pacote);

@@ -27,7 +27,7 @@ public class Switch {
 				return porta;
 			}
 		}
-		
+
 		throw new NullPointerException();
 	}
 
@@ -38,48 +38,42 @@ public class Switch {
 		// ARP - MAC, IP
 		// 1. Adiciona na Tabela Enc e Tabela Arp, respectivamente o Mac Address/Porta e
 		// Ip/Mac Address
-		System.out.println("Colocando na ENC table os dados do \"acusado\"...");
+		System.out.println("Colocando na ENC table os dados do \"acusado\", caso já não estejam...");
 		this.tabEnc.put(pacote.getMacOrigem(), portaSwitch);
-		
-		System.out.println("Colocando na ARP table os dados do \"acusado\"...");
-		this.tabArp.put(pacote.getIpOrigem(),pacote.getMacOrigem());
+
+		System.out.println("Colocando na ARP table os dados do \"acusado\", caso já não estejam...");
+		this.tabArp.put(pacote.getIpOrigem(), pacote.getMacOrigem());
 
 		// 2. caso seja FFF no mac Destino, verifica-se na Tabela Arp caso nao
 		// verifica-se na Tabela Enc
 		// 3. Apos verificar-se na tabela, caso esteja na tabela executa o
 		// encaminhamento caso nao executa BroadCast
 		if (pacote.getMacDestino().equals("FF:FF:FF:FF:FF:FF")) {
-			System.out.println("O pacote tem Mac Destino igual a FF...");
+			System.out.println("O pacote tem Mac Destino igual a FF.FF.FF.FF.FF.FF...");
 			this.broadcast(pacote);
 		} else {
-			System.out.println("O pacote tem Mac Destino diferente de FF...");
+			System.out.println("O pacote tem Mac Destino diferente de FF.FF.FF.FF.FF.FF...");
 			String macDes = this.buscarARP(pacote.getIpDestino());
 
-			if (macDes == null) {
-				System.out.println("Não localizou o MAC na tabela ARP...");
-				this.broadcast(pacote);
-			} else {
-				System.out.println("Localizou o MAC na tabela ARP...");
-				PortaSwitch porta = this.buscarEnc(macDes);
+			PortaSwitch porta = this.buscarEnc(macDes);
 
-				if (porta == null) {
-					System.out.println("Não localizou a porta na tabela ENC...");
-					this.broadcast(pacote);
-				} 
-				
-				else {
-					System.out.println("Localizou a porta na tabela ENC...");
-					this.encaminhar(pacote, porta);
-				}
-				
+			if (porta == null) {
+				System.out.println("Não localizou a porta na tabela ENC...");
+				this.broadcast(pacote);
+			}
+
+			else {
+				System.out.println("Localizou a porta na tabela ENC...");
 				this.encaminhar(pacote, porta);
 			}
+
+//			}
 		}
 	}
-	
+
 	private void encaminhar(Pacote pacote, PortaSwitch Porta) {
 		System.out.println("");
-		System.out.println("Switch encaminhando o pacote para a próxima porta switch...");
+		System.out.println("Switch encaminhando o pacote para a (próxima) porta switch...");
 
 		Porta.enviar(pacote);
 	}
@@ -92,22 +86,22 @@ public class Switch {
 		// nao espera-se resposta de ninguem.
 
 		for (PortaSwitch portaSwitch : this.getPorts()) {
-			if(portaSwitch.getCabo() != null) {
+			if (portaSwitch.getCabo() != null) {
 				this.encaminhar(pacote, portaSwitch);
 			}
-			
+
 		}
 	}
-	
+
 	private String buscarARP(String ip) {
-		System.out.println("Buscando na tabela ARP...");
+		System.out.println("Buscando na tabela ARP do switch...");
 
 		return this.tabArp.get(ip);
 	}
 
 	private PortaSwitch buscarEnc(String macAddress) {
-		System.out.println("Buscando na tabela ENC...");
-		
+		System.out.println("Buscando na tabela ENC do switch...");
+
 		return this.tabEnc.get(macAddress);
 	}
 
