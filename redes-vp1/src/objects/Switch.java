@@ -19,7 +19,7 @@ public class Switch {
 	public Switch() {
 	}
 
-	public PortaSwitch getPrimeiraPortaDesconectada() throws NullPointerException {
+	public PortaSwitch getPrimeiraPortaDesconectada() {
 		System.out.println("Obtendo primeira porta desconectada, do switch...");
 
 		for (PortaSwitch porta : this.ports) {
@@ -27,8 +27,8 @@ public class Switch {
 				return porta;
 			}
 		}
-
-		throw new NullPointerException();
+		
+		return null;
 	}
 
 	public void receber(Pacote pacote, PortaSwitch portaSwitch) {

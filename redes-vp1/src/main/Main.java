@@ -55,12 +55,21 @@ public class Main {
 			
 		    try {
 		    	PortaSwitch portaDesconectada1 = swi.getPrimeiraPortaDesconectada();
-				cabo1.atrelar(portaOrigem, portaDesconectada1);
+		    	if (portaDesconectada1 != null) {
+		    		cabo1.atrelar(portaOrigem, portaDesconectada1);
+		    	} else {
+		    		throw new NullPointerException("Não há portas desconectadas");
+		    	}
 				
 				PortaSwitch portaDesconectada2 = swi.getPrimeiraPortaDesconectada();
-				cabo2.atrelar(portaDestino, portaDesconectada2);	// mudar depois pra 3
+				if (portaDesconectada2 != null) {
+					cabo2.atrelar(portaDestino, portaDesconectada2);
+		    	} else {
+		    		throw new NullPointerException("Não há portas desconectadas");
+		    	}
 			} catch (Exception e) {
-				System.out.println("Error    Não tem portas deconectadas...");
+				System.err.println("error: "+ e.getMessage());
+				System.exit(0);
 			}
 		    
 	    	Scanner sc = new Scanner(System.in);

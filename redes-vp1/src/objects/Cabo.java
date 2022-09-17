@@ -19,7 +19,7 @@ public class Cabo {
 				System.out.println("... para a ponta 1, que é do tipo " + this.getPonta1().getClass().getName());
 				this.getPonta1().receber(pacote);
 			}
-		} else { throw new NullPointerException(); }
+		} else { throw new NullPointerException("Não há portas deconectadas"); }
 	}
 
 	public void atrelar(Porta ponta1, Porta ponta2) {
