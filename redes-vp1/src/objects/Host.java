@@ -1,12 +1,13 @@
 package objects;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 public class Host {
 
-	private HashMap<String, String> tabArp = new HashMap<>();
-	private HashMap<String, Porta> tabEnc = new HashMap<>();
+	private Map<String, String> tabArp = new HashMap<>();
+	private Map<String, Porta> tabEnc = new HashMap<>();
 	private PortaHost portaHost;
 	private Queue<Pacote> fila =  new LinkedList<Pacote>();
 	
@@ -99,19 +100,19 @@ public class Host {
 	}
 
 	
-	public HashMap<String, String> getTabArp() {
+	public Map<String, String> getTabArp() {
 		return tabArp;
 	}
 
-	public void setTabArp(HashMap<String, String> tabArp) {
+	public void setTabArp(Map<String, String> tabArp) {
 		this.tabArp = tabArp;
 	}
 
-	public HashMap<String, Porta> getTabEnc() {
+	public Map<String, Porta> getTabEnc() {
 		return tabEnc;
 	}
 
-	public void setTabEnc(HashMap<String, Porta> tabEnc) {
+	public void setTabEnc(Map<String, Porta> tabEnc) {
 		this.tabEnc = tabEnc;
 	}
 

@@ -18,7 +18,6 @@ public class Pacote {
 	}
 	
 	public Pacote(String macOrigem, String macDestino, String ipOrigem, String ipDestino, Boolean ARPRequest) {
-
 		this.macOrigem = macOrigem;
 		this.ipOrigem = ipOrigem;
 		this.macDestino = macDestino;
