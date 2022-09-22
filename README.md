@@ -23,7 +23,7 @@ E um de sequência*:
 * Observação: O diagrama de sequências fornece várias possibilidades de trajeto.  Também no que, ao final, há um "recomeça". Neste caso, dependendo da situação, como no caso da criação de novo pacote para envio, o fluxo não é recomeçado do extremo começo, devendo o fluxo ser acompanhado a partir do << create >> Pacote (), no host origem.
 
 E um de classes: 
-![](diagrama_de_classes.jpeg)
+![](diagrama_de_classes1.jpeg)
 
 
 
